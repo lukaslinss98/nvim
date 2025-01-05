@@ -8,10 +8,12 @@ vim.opt.expandtab = true
 
 vim.opt.wrap = false
 
-vim.opt.incsearch = true 
+vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 10
 
 vim.g.mapleader = " "
+
+vim.opt.fillchars = { eob = " " }
 
