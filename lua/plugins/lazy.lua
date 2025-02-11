@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+    { 'datsfilipe/vesper.nvim' },
     -- telescope
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
@@ -159,5 +160,5 @@ require("lazy").setup({
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
-  },
+  }
 })
