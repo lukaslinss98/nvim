@@ -17,7 +17,19 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+
+    -- monokai pro theme
+    { 'loctvl842/monokai-pro.nvim', name = 'monokai' },
+    
+    -- catppuccin theme
+    { "catppuccin/nvim", name = "catppuccin" },
+
+    -- vesper theme
     { 'datsfilipe/vesper.nvim' },
+
+    -- rose-pine theme
+    { "rose-pine/neovim", name = "rose-pine" },
+
     -- telescope
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
@@ -121,7 +133,6 @@ require("lazy").setup({
                 ensure_installed = {
                     "jdtls",
                     "ts_ls",
-                    "js_ls",
                     "pyright",
                     "gopls",
                     "html",
