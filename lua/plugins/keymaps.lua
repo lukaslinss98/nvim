@@ -7,3 +7,6 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 -- nvim.tree
 vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<cr>")
 vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<cr>")
+
+-- fine command-line
+vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
