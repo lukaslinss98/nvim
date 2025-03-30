@@ -4,4 +4,7 @@ require("plugins.lazy")
 require("plugins.keymaps")
 require("plugins.theme")
 require("plugins.cmdline")
+require("plugins.rename")
+require("plugins.statusbar")
+require("plugins.smearcursor")
 

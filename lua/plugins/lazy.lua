@@ -18,6 +18,12 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+    -- fleet dark theme
+    {
+        "felipeagc/fleet-theme-nvim",
+        config = function() vim.cmd("colorscheme fleet") end
+    },
+
     -- monokai pro theme
     { 'loctvl842/monokai-pro.nvim', name = 'monokai' },
     
@@ -141,7 +147,6 @@ require("lazy").setup({
                     "html",
                     "cssls",
                     "tailwindcss",
-                    "eslint",
                 },
                 automatic_installation = true,
                 handlers = {
@@ -157,22 +162,46 @@ require("lazy").setup({
 
     -- treesitter 
     {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate", -- Automatically update parsers after installation
-    event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
-    opts = {
-      ensure_installed = {
-        "lua", "javascript", "typescript", "python", "go", "html", "css", "bash", "java"
-      }, -- Add the languages you use
-      highlight = {
-        enable = true, -- Enable syntax highlighting
-      },
-      indent = {
-        enable = true, -- Enable Tree-sitter-based indentation
-      },
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate", -- Automatically update parsers after installation
+        event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
+        opts = {
+            ensure_installed = {
+                "lua", "javascript", "typescript", "python", "go", "html", "css", "bash", "java"
+            }, -- Add the languages you use
+            highlight = {
+                enable = true, -- Enable syntax highlighting
+            },
+            indent = {
+                enable = true, -- Enable Tree-sitter-based indentation
+            },
+        },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+        end,
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-  }
+
+    -- rename
+    {
+        "nvim-lua/plenary.nvim",
+        "filipdutescu/renamer.nvim",
+        branch = "master",
+    },
+
+    -- statusbar
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+
+    -- smearcursor
+    {
+        "sphamba/smear-cursor.nvim",
+        opts = {},
+    },
+
+    -- auto close
+    {
+        "m4xshen/autoclose.nvim"
+    }
 })

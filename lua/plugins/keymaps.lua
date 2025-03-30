@@ -5,8 +5,8 @@ vim.keymap.set('n', '<leader>fs', builtin.git_files, {desc = 'Telescope find git
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 
 -- nvim.tree
-vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<cr>")
-vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<cr>")
+vim.keymap.set("n", "<leader>eo", ":NvimTreeOpen<cr>")
+vim.keymap.set("n", "<leader>c", ":NvimTreeClose<cr>")
 
 -- fine command-line
 vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
