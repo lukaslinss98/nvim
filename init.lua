@@ -7,4 +7,5 @@ require("plugins.cmdline")
 require("plugins.rename")
 require("plugins.statusbar")
 require("plugins.smearcursor")
+require("plugins.autoclose")
 

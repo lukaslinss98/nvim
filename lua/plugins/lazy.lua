@@ -18,6 +18,11 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+    -- vague theme
+    {
+        "vague2k/vague.nvim",
+    },
+
     -- fleet dark theme
     {
         "felipeagc/fleet-theme-nvim",
