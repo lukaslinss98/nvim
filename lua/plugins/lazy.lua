@@ -106,25 +106,23 @@ require("lazy").setup({
             {'hrsh7th/cmp-nvim-lsp'},
             {'williamboman/mason.nvim'},
             {'williamboman/mason-lspconfig.nvim'},
+            { 'saghen/blink.cmp' },
         },
+
         init = function()
-            -- Reserve a space in the gutter
-            -- This will avoid an annoying layout shift in the screen
             vim.opt.signcolumn = 'yes'
         end,
         config = function()
             local lsp_defaults = require('lspconfig').util.default_config
 
-            -- Add cmp_nvim_lsp capabilities settings to lspconfig
-            -- This should be executed before you configure any language server
+
             lsp_defaults.capabilities = vim.tbl_deep_extend(
             'force',
             lsp_defaults.capabilities,
-            require('cmp_nvim_lsp').default_capabilities()
+            require('cmp_nvim_lsp').default_capabilities(),
+            require('blink.cmp').get_lsp_capabilities()
             )
 
-            -- LspAttach is where you enable features that only work
-            -- if there is a language server active in the file
             vim.api.nvim_create_autocmd('LspAttach', {
                 desc = 'LSP actions',
                 callback = function(event)
@@ -184,6 +182,31 @@ require("lazy").setup({
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
         end,
+    },
+    {
+        'saghen/blink.cmp',
+        dependencies = { 'rafamadriz/friendly-snippets' },
+
+        version = '1.*',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            keymap = { preset = 'default' },
+
+            appearance = {
+                nerd_font_variant = 'mono'
+            },
+
+            completion = { documentation = { auto_show = false } },
+
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+
+            fuzzy = { implementation = "prefer_rust_with_warning" }
+        },
+        opts_extend = { "sources.default" }
     },
 
     -- rename
