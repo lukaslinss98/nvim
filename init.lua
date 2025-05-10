@@ -1,5 +1,5 @@
-require("remap")
 require("set")
+require("remap")
 require("plugins.lazy")
 require("plugins.lsp")
 require("plugins.treesitter")

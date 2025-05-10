@@ -6,7 +6,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
+            { out,                            "WarningMsg" },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -41,7 +41,9 @@ require("lazy").setup({
     },
 
     -- vesper theme
-    { 'datsfilipe/vesper.nvim' },
+    {
+        'datsfilipe/vesper.nvim'
+    },
 
     -- rose-pine theme
     {
@@ -88,29 +90,29 @@ require("lazy").setup({
     -- LSP
     {
         'neovim/nvim-lspconfig',
-        cmd = {'LspInfo', 'LspInstall', 'LspStart'},
-        event = {'BufReadPre', 'BufNewFile'},
+        cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
             { 'saghen/blink.cmp' },
         },
     },
 
-    -- treesitter 
+    -- treesitter
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate", -- Automatically update parsers after installation
+        build = ":TSUpdate",                     -- Automatically update parsers after installation
         event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
     },
 
     -- blink.cmp
     {
         'saghen/blink.cmp',
-        dependencies = { 
-            {'rafamadriz/friendly-snippets'},
-            {'williamboman/mason.nvim'},
+        dependencies = {
+            { 'rafamadriz/friendly-snippets' },
+            { 'williamboman/mason.nvim' },
         },
         version = '1.*',
         opts_extend = { "sources.default" }
