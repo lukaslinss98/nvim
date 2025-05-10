@@ -96,7 +96,6 @@ require("lazy").setup({
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
-            { 'saghen/blink.cmp' },
         },
     },
 
@@ -105,17 +104,6 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",                     -- Automatically update parsers after installation
         event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
-    },
-
-    -- blink.cmp
-    {
-        'saghen/blink.cmp',
-        dependencies = {
-            { 'rafamadriz/friendly-snippets' },
-            { 'williamboman/mason.nvim' },
-        },
-        version = '1.*',
-        opts_extend = { "sources.default" }
     },
 
     -- rename
