@@ -1,5 +1,32 @@
 local cmp = require('cmp')
 local select_opts = { behavior = cmp.SelectBehavior.Select }
+local cmp_kinds = {
+    Text = ' ',
+    Method = ' ',
+    Function = ' ',
+    Constructor = ' ',
+    Field = ' ',
+    Variable = ' ',
+    Class = ' ',
+    Interface = ' ',
+    Module = ' ',
+    Property = ' ',
+    Unit = ' ',
+    Value = ' ',
+    Enum = ' ',
+    Keyword = ' ',
+    Snippet = ' ',
+    Color = ' ',
+    File = ' ',
+    Reference = ' ',
+    Folder = ' ',
+    EnumMember = ' ',
+    Constant = ' ',
+    Struct = ' ',
+    Event = ' ',
+    Operator = ' ',
+    TypeParameter = ' ',
+}
 
 cmp.setup({
     sources = {
@@ -12,17 +39,25 @@ cmp.setup({
 
     formatting = {
         fields = { 'menu', 'abbr', 'kind' },
-        format = function(entry, item)
-            local menu_icon = {
-                nvim_lsp = 'λ',
-                luasnip = '⋗',
-                buffer = 'Ω',
-                path = '🖫',
-            }
-
-            item.menu = menu_icon[entry.source.name]
-            return item
+        format = function(_, vim_item)
+            vim_item.kind = cmp_kinds[vim_item.kind] or ''
+            vim_item.menu = ''
+            return vim_item
         end,
+    },
+
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
     },
 
     mapping = {

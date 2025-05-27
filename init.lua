@@ -11,5 +11,5 @@ require("plugins.statusbar")
 require("plugins.smearcursor")
 require("plugins.autoclose")
 require("plugins.nvimtree")
-require("plugins.autocompletion")
+require("plugins.cmp")
 

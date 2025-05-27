@@ -1,12 +1,20 @@
 vim.opt.termguicolors = true
 
 require("nvim-tree").setup({
-    git = { enable = true },
+    git = { enable = true, },
     renderer = {
         highlight_git = true,
         icons = {
-            show = {
-                git = true,
+            glyphs = {
+                git = {
+                    unstaged = "",
+                    staged = "S",
+                    unmerged = "",
+                    renamed = "➜",
+                    untracked = "U",
+                    deleted = "",
+                    ignored = "◌"
+                },
             },
         },
     },
