@@ -133,5 +133,11 @@ require("lazy").setup({
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
+    },
+
+    -- lspkind
+    {
+        "onsails/lspkind.nvim",
+        lazy = true,
     }
 })

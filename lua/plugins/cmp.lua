@@ -1,32 +1,6 @@
 local cmp = require('cmp')
+local lspkind = require('lspkind')
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local cmp_kinds = {
-    Text = ' ',
-    Method = ' ',
-    Function = ' ',
-    Constructor = ' ',
-    Field = ' ',
-    Variable = ' ',
-    Class = ' ',
-    Interface = ' ',
-    Module = ' ',
-    Property = ' ',
-    Unit = ' ',
-    Value = ' ',
-    Enum = ' ',
-    Keyword = ' ',
-    Snippet = ' ',
-    Color = ' ',
-    File = ' ',
-    Reference = ' ',
-    Folder = ' ',
-    EnumMember = ' ',
-    Constant = ' ',
-    Struct = ' ',
-    Event = ' ',
-    Operator = ' ',
-    TypeParameter = ' ',
-}
 
 cmp.setup({
     sources = {
@@ -34,16 +8,34 @@ cmp.setup({
     },
 
     window = {
+        completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
 
     formatting = {
-        fields = { 'menu', 'abbr', 'kind' },
-        format = function(_, vim_item)
-            vim_item.kind = cmp_kinds[vim_item.kind] or ''
-            vim_item.menu = ''
-            return vim_item
-        end,
+        format = lspkind.cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+            maxwidth = {
+                menu = 50,
+                abbr = 50,
+            },
+
+            menu = {
+                buffer = "[Buf]",
+                nvim_lsp = "[LSP]",
+                path = "[Path]",
+                luasnip = "[Snip]",
+                nvim_lua = "[Lua]",
+            },
+
+            ellipsis_char = '...',
+            show_labelDetails = true,
+
+            before = function(entry, vim_item)
+                -- ...
+                return vim_item
+            end
+        }),
     },
 
     sorting = {
