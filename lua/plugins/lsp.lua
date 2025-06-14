@@ -10,19 +10,35 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 
 -- LSP keybindings
 vim.api.nvim_create_autocmd('LspAttach', {
-    desc = 'LSP actions',
+    desc = 'LSP actions with Telescope',
     callback = function(event)
         local opts = { buffer = event.buf }
-        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        local builtin = require('telescope.builtin')
+
+        -- Hover and signature help (built-in)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+
+        -- Definitions, declarations, implementations, references via Telescope
+        vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
+        vim.keymap.set('n', 'go', builtin.lsp_type_definitions, opts)
+        vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+
+        -- Telescope-powered symbol search
+        vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, opts)
+        vim.keymap.set('n', '<leader>ws', builtin.lsp_workspace_symbols, opts)
+
+        -- Code actions and refactor
+        vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('x', '<F4>', vim.lsp.buf.code_action, opts)
+
+        -- Rename and format
+        vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', function()
+            vim.lsp.buf.format({ async = true })
+        end, opts)
     end,
 })
 

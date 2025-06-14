@@ -127,5 +127,11 @@ require("lazy").setup({
     -- auto close
     {
         'm4xshen/autoclose.nvim'
+    },
+
+    -- which key
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
     }
 })
