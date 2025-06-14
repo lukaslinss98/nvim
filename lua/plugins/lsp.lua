@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Rename and format
         vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'x' }, '<F3>', function()
+        vim.keymap.set({ 'n', 'x' }, '<leader>f', function()
             vim.lsp.buf.format({ async = true })
         end, opts)
     end,

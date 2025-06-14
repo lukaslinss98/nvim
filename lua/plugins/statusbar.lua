@@ -2,8 +2,8 @@ require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = 'auto',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -19,18 +19,34 @@ require('lualine').setup {
         }
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', {
+            function()
+                local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+                if next(clients) == nil then return '' end
+
+                local names = {}
+                for _, client in ipairs(clients) do
+                    table.insert(names, client.name)
+                end
+                return 'LSP: ' .. table.concat(names, ', ')
+            end,
+            cond = function()
+                return vim.lsp.get_active_clients({ bufnr = 0 })[1] ~= nil
+            end,
+        },
+            'filetype'
+        },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
     },
@@ -39,4 +55,3 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
-
