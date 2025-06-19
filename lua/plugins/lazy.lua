@@ -19,14 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
     -- vague theme
-    {
-        "vague2k/vague.nvim",
-    },
+    { "vague2k/vague.nvim" },
 
     -- fleet dark theme
-    {
-        "felipeagc/fleet-theme-nvim",
-    },
+    { "felipeagc/fleet-theme-nvim" },
 
     -- monokai pro theme
     {
@@ -41,9 +37,7 @@ require("lazy").setup({
     },
 
     -- vesper theme
-    {
-        'datsfilipe/vesper.nvim'
-    },
+    { 'datsfilipe/vesper.nvim' },
 
     -- rose-pine theme
     {
@@ -61,7 +55,14 @@ require("lazy").setup({
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.8',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make'
+            }
+        }
+
     },
 
     -- nvim-tree
@@ -96,6 +97,17 @@ require("lazy").setup({
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
+            { "jay-babu/mason-nvim-dap.nvim" },
+
+        },
+    },
+
+    -- jdtls
+    {
+        "mfussenegger/nvim-jdtls",
+        ft = { "java" },
+        dependencies = {
+            "neovim/nvim-lspconfig",
         },
     },
 
