@@ -24,7 +24,7 @@ require('lualine').setup {
         lualine_c = { 'filename' },
         lualine_x = { 'encoding', {
             function()
-                local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+                local clients = vim.lsp.get_clients({ bufnr = 0 })
                 if next(clients) == nil then return '' end
 
                 local names = {}
@@ -34,7 +34,7 @@ require('lualine').setup {
                 return 'LSP: ' .. table.concat(names, ', ')
             end,
             cond = function()
-                return vim.lsp.get_active_clients({ bufnr = 0 })[1] ~= nil
+                return vim.lsp.get_clients({ bufnr = 0 })[1] ~= nil
             end,
         },
             'filetype'
