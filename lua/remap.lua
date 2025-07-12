@@ -13,3 +13,10 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>n", ":bn<cr>")
 vim.keymap.set("n", "<leader>p", ":bp<cr>")
 vim.keymap.set("n", "<leader>x", ":bd<cr>")
+
+-- window
+vim.keymap.set("n", "<leader>wc", "<c-w>q", { desc = "[W]indow [C]lose"})
+vim.keymap.set("n", "<leader>wl", "<c-w>h", { desc = "[W]indow [L]eft"})
+vim.keymap.set("n", "<leader>wr", "<c-w>l", { desc = "[W]indow [R]ight"})
+vim.keymap.set("n", "<leader>wd", "<c-w>j", { desc = "[W]indow [D]own"})
+vim.keymap.set("n", "<leader>wu", "<c-w>k", { desc = "[W]indow [U]p"})

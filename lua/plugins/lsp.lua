@@ -1,4 +1,11 @@
 vim.opt.signcolumn = 'yes'
+vim.diagnostic.config({
+  virtual_text = true, -- show inline text
+  signs = true,        -- show signs in the gutter (like the red E)
+  underline = true,    -- underline the line with the issue
+  update_in_insert = false,
+  severity_sort = true,
+})
 
 -- Set up default capabilities with extensions
 local lsp_defaults = require('lspconfig').util.default_config
