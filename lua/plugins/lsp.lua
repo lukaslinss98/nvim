@@ -29,9 +29,10 @@ require("mason").setup({
 
 -- Setup Mason-lspconfig
 require('mason-lspconfig').setup({
-    standard_setup_lsps = {
+    ensure_installed = {
+        "lua_ls",
         "kotlin_language_server",
-        "ts_ls",
+        "vtsls",
         "pyright",
         "gopls",
         "html",
@@ -44,6 +45,46 @@ require('mason-lspconfig').setup({
     handlers = {
         function(server_name)
             lspconfig[server_name].setup({})
+        end,
+
+        ["vtsls"] = function()
+            require("lspconfig").vtsls.setup({
+                -- Optional, but recommended
+                settings = {
+                    typescript = {
+                        suggest = {
+                            completeFunctionCalls = true
+                        }
+                    },
+                    vtsls = {
+                        experimental = {
+                            enableProjectDiagnostics = true
+                        }
+                    }
+                },
+                filetypes = {
+                    "typescript",
+                    "typescriptreact",
+                    "javascript",
+                    "javascriptreact"
+                },
+            })
+        end,
+
+        ["tailwindcss"] = function()
+            lspconfig.tailwindcss.setup({
+                root_dir = function(fname)
+                    return require('lspconfig.util').root_pattern(
+                        'tailwind.config.js',
+                        'tailwind.config.ts',
+                        'postcss.config.js',
+                        'postcss.config.ts',
+                        'package.json',
+                        'node_modules',
+                        '.git'
+                    )(fname)
+                end,
+            })
         end,
 
         ["jdtls"] = function() end,
