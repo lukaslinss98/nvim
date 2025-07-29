@@ -13,4 +13,3 @@ require("plugins.autoclose")
 require("plugins.nvimtree")
 require("plugins.cmp")
 require("plugins.telescope")
-

@@ -16,4 +16,3 @@ vim.opt.scrolloff = 10
 vim.g.mapleader = " "
 
 vim.opt.fillchars = { eob = " " }
-

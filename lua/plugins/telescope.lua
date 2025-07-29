@@ -34,13 +34,13 @@ end
 
 require('telescope').setup({
 
-    defaults = {
-        path_display = path_display
-    },
+  defaults = {
+    path_display = path_display
+  },
 
-    pickers = {
-       lsp_references = {
-            theme = "dropdown"
-        }
+  pickers = {
+    lsp_references = {
+      theme = "dropdown"
     }
+  }
 })

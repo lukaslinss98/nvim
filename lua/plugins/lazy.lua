@@ -114,8 +114,8 @@ require("lazy").setup({
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",                         -- Automatically update parsers after installation
-    event = { "BufReadPost", "BufNewFile" },     -- Load Tree-sitter when opening files
+    build = ":TSUpdate",                     -- Automatically update parsers after installation
+    event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
   },
 
   -- rename

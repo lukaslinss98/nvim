@@ -11,11 +11,11 @@ require("nvim-treesitter.configs").setup({
     "java",
     "kotlin",
     "markdown"
-  },                   -- Add the languages you use
+  },               -- Add the languages you use
   highlight = {
-    enable = true,     -- Enable syntax highlighting
+    enable = true, -- Enable syntax highlighting
   },
   indent = {
-    enable = true,     -- Enable Tree-sitter-based indentation
+    enable = true, -- Enable Tree-sitter-based indentation
   },
 })
