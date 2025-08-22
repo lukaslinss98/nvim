@@ -8,8 +8,15 @@ obsidian.setup({
       path = "~/Documents/Obsidian",
     },
   },
+  templates = {
+    folder = "Templates",
+    date_format = "%Y-%m-%d",
+    time_format = "%H:%M",
+    -- A map for custom variables, the key should be the variable and the value a function
+    substitutions = {},
+  },
   mapping = {
-    ["gf"] = function ()
+    ["gf"] = function()
       return obsidian.util.gf_passthrough()
     end,
     opts = {
@@ -18,5 +25,14 @@ obsidian.setup({
       buffer = true
     }
 
-  }
+  },
+  note_id_func = function(title)
+    if title ~= nil then
+      return title
+    else
+      for _ = 1, 4 do
+        return "" .. string.char(math.random(65, 90))
+      end
+    end
+  end,
 })
