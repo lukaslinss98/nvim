@@ -4,8 +4,8 @@ vim.o.conceallevel = 2
 obsidian.setup({
   workspaces = {
     {
-      name = "lukas-remote",
-      path = "~/Documents/Obsidian",
+      name = "obsidian-vault",
+      path = "~/dev/obsidian/vault",
     },
   },
   templates = {
