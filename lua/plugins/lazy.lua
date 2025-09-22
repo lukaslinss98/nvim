@@ -18,6 +18,14 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+  -- snacks
+  {
+    "folke/snacks.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+
   -- oil
   {
     'stevearc/oil.nvim',
@@ -59,6 +67,20 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+  },
+  {
+    'shaunsingh/nord.nvim'
+  },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
+    lazy = false,
+    priority = 1000,
   },
   -- tokyonight
   {
