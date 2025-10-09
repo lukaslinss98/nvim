@@ -18,6 +18,10 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+
+  {
+    'Vigemus/iron.nvim'
+  },
   -- snacks
   {
     "folke/snacks.nvim",

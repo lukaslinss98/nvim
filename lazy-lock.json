@@ -6,6 +6,7 @@
   "fine-cmdline.nvim": { "branch": "main", "commit": "7db181d1cb294581b12a036eadffffde762a118f" },
   "fleet-theme-nvim": { "branch": "master", "commit": "45c300c31485def326db00d9c857760d50e5c728" },
   "gruvbox-material": { "branch": "master", "commit": "9bcf7c90e546119c841fecc9807efbd498a3f513" },
+  "iron.nvim": { "branch": "master", "commit": "6d7732bef2c890e693ffb4ecd6a3c3ed75fd6478" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "lspkind.nvim": { "branch": "master", "commit": "d79a1c3299ad0ef94e255d045bed9fa26025dab6" },
   "lualine.nvim": { "branch": "master", "commit": "b8c23159c0161f4b89196f74ee3a6d02cdc3a955" },
