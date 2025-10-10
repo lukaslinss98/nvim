@@ -10,13 +10,13 @@ iron.setup {
         command = { "zsh" }
       },
       python = {
-        command = { "python3" }, -- or { "ipython", "--no-autoindent" }
+        command = { "ipython", "--no-autoindent" }, -- or { "ipython", "--no-autoindent" }
         format = common.bracketed_paste_python,
         block_dividers = { "# %%", "#%%" },
         env = { PYTHON_BASIC_REPL = "1" } --this is needed for python3.13 and up.
       }
     },
-    repl_filetype = function(bufnr, ft)
+    repl_filetype = function(_, ft)
       return ft
     end,
     dap_integration = true,
@@ -26,14 +26,14 @@ iron.setup {
     toggle_repl = "<space>rr",  -- toggles the repl open and closed.
     restart_repl = "<space>rR", -- calls `IronRestart` to restart the repl
     send_motion = "<space>sc",
-    visual_send = "<space>sc",
-    send_file = "<space>sf",
-    send_line = "<space>sl",
-    send_paragraph = "<space>sp",
-    send_until_cursor = "<space>su",
-    send_mark = "<space>sm",
-    send_code_block = "<space>sb",
-    send_code_block_and_move = "<space>sn",
+    visual_send = "<space>rc",
+    send_file = "<space>rf",
+    send_line = "<space>rl",
+    send_paragraph = "<space>rp",
+    send_until_cursor = "<space>ru",
+    send_mark = "<space>rm",
+    send_code_block = "<space>rb",
+    send_code_block_and_move = "<space>rn",
     mark_motion = "<space>mc",
     mark_visual = "<space>mc",
     remove_mark = "<space>md",
@@ -50,6 +50,3 @@ iron.setup {
 
 vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
 vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
-
-
--- One can always use the default commands from vim directly

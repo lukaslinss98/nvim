@@ -168,6 +168,17 @@ require("lazy").setup({
     dependencies = 'nvim-tree/nvim-web-devicons'
   },
 
+  -- blink
+  {
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      'nvim-mini/mini.nvim'
+    },
+    version = '1.*'
+  },
+
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',

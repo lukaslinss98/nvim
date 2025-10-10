@@ -1,5 +1,11 @@
+require("rose-pine").setup({
+  styles = {
+        transparency = true,
+    },
+})
+
 require("vague").setup({
-  transparent = true,   -- don't set background
+  transparent = false,   -- don't set background
   style = {
     -- "none" is the same thing as default. But "italic" and "bold" are also valid options
     boolean = "bold",
@@ -78,5 +84,4 @@ require("vague").setup({
   },
 })
 
-vim.cmd("colorscheme gruvbox-material")
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.cmd("colorscheme vague")
