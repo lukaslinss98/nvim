@@ -12,7 +12,9 @@ require("nvim-treesitter.configs").setup({
     "kotlin",
     "markdown",
     "turtle",
-    "yaml"
+    "yaml",
+    "terraform",
+    "hcl"
   },
   highlight = {
     enable = true,

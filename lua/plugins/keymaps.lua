@@ -1,6 +1,8 @@
 -- telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {
+  desc = 'Telescope find files',
+})
 vim.keymap.set('n', '<leader>fs', builtin.git_files, { desc = 'Telescope find git files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>en', function()
@@ -10,6 +12,8 @@ vim.keymap.set('n', '<leader>en', function()
 end
 , { desc = 'Telescope Edit NeoVim' }
 )
+
+vim.keymap.set('n', '<leader>ge', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
 
 -- nvim.tree
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true })

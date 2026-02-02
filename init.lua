@@ -17,5 +17,6 @@ require("plugins.obsidian")
 require("plugins.markdown")
 require("plugins.notifications")
 require("plugins.snacks")
-require("plugins.iron")
 require("plugins.blink")
+require("plugins.molten")
+

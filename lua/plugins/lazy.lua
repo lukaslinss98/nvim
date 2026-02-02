@@ -18,9 +18,31 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+  {
+    'nvim-java/nvim-java',
+    config = function()
+      require('java').setup()
+      vim.lsp.enable('jdtls')
+    end,
+  },
 
   {
-    'Vigemus/iron.nvim'
+    "benlubas/molten-nvim",
+    version = "^1.0.0",
+    build = ":UpdateRemotePlugins",
+    dependencies = {
+      "3rd/image.nvim",
+    },
+    event = { "BufReadPre *.py", "BufNewFile *.py" },
+  },
+
+  { "3rd/image.nvim",            event = "VeryLazy" },
+  -- intellij theme
+  {
+    "nickkadutskyi/jb.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
   -- snacks
   {
@@ -33,13 +55,7 @@ require("lazy").setup({
   -- oil
   {
     'stevearc/oil.nvim',
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    opts = {},
-    -- Optional dependencies
-    -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    dependencies = { "nvim-tree/nvim-web-devicons" }, 
     lazy = false,
   },
 
@@ -47,20 +63,24 @@ require("lazy").setup({
   {
     "benomahony/oil-git.nvim",
     dependencies = { "stevearc/oil.nvim" },
-    -- No opts or config needed! Works automatically
   },
 
   -- notifications
   {
-    'rcarriga/nvim-notify'
+    'rcarriga/nvim-notify',
+    config = function()
+      local notify = require("notify")
+      notify.setup({
+        stages = "fade_in_slide_out",
+      })
+      vim.notify = notify 
+    end,
   },
 
   -- render-markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
   },
 
   -- obsidian
@@ -196,15 +216,6 @@ require("lazy").setup({
       { 'williamboman/mason-lspconfig.nvim' },
       { "jay-babu/mason-nvim-dap.nvim" },
 
-    },
-  },
-
-  -- jdtls
-  {
-    "mfussenegger/nvim-jdtls",
-    ft = { "java" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
     },
   },
 

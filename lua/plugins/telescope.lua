@@ -29,7 +29,7 @@ local function path_display(_, path)
   if filename == stripped_path or stripped_path == "" then
     return filename
   end
-  return string.format("%s ~ %s", filename, stripped_path)
+  return string.format("%s - %s", filename, stripped_path)
 end
 
 require('telescope').setup({
