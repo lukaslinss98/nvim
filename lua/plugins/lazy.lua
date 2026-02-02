@@ -161,12 +161,6 @@ require("lazy").setup({
     name = 'rose-pine'
   },
 
-  -- fine command-line
-  {
-    'MunifTanjim/nui.nvim',
-    dependencies = { 'VonHeikemen/fine-cmdline.nvim' }
-  },
-
   -- telescope
   {
     'nvim-telescope/telescope.nvim',

@@ -18,9 +18,6 @@ vim.keymap.set('n', '<leader>ge', vim.diagnostic.goto_next, { desc = 'Go to next
 -- nvim.tree
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true })
 
---cmdline
-vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', { noremap = true })
-
 -- LSP keybindings
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions with Telescope',
