@@ -1,11 +1,21 @@
 require("snacks").setup({
   image = { enabled = true },
+  bigfile = { enabled = true },
+  statuscolumn = { enabled = true },
   picker = { enabled = true },
   indent = {
     enable = true,
     animate = {
       enabled = false
     }
+  },
+  input = {
+    icon = " ",
+    icon_hl = "SnacksInputIcon",
+    icon_pos = "left",
+    prompt_pos = "title",
+    win = { style = "input" },
+    expand = true,
   },
   dashboard = {
     preset = {

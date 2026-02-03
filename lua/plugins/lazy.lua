@@ -18,6 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
+  -- In none-ls
+  { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+
   {
     'nvim-java/nvim-java',
     config = function()
@@ -36,7 +39,7 @@ require("lazy").setup({
     event = { "BufReadPre *.py", "BufNewFile *.py" },
   },
 
-  { "3rd/image.nvim",            event = "VeryLazy" },
+  { "3rd/image.nvim",         event = "VeryLazy" },
   -- intellij theme
   {
     "nickkadutskyi/jb.nvim",
@@ -55,7 +58,7 @@ require("lazy").setup({
   -- oil
   {
     'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" }, 
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
   },
 
@@ -73,7 +76,7 @@ require("lazy").setup({
       notify.setup({
         stages = "fade_in_slide_out",
       })
-      vim.notify = notify 
+      vim.notify = notify
     end,
   },
 

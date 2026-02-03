@@ -18,4 +18,5 @@ require("plugins.notifications")
 require("plugins.snacks")
 require("plugins.blink")
 require("plugins.molten")
+require("plugins.formatting")
 
