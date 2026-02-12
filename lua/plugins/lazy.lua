@@ -18,9 +18,10 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 
-  -- In none-ls
-  { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-
+  -- formatting manager
+  {
+    'stevearc/conform.nvim',
+  },
   {
     'nvim-java/nvim-java',
     config = function()
@@ -39,7 +40,7 @@ require("lazy").setup({
     event = { "BufReadPre *.py", "BufNewFile *.py" },
   },
 
-  { "3rd/image.nvim",         event = "VeryLazy" },
+  { "3rd/image.nvim",            event = "VeryLazy" },
   -- intellij theme
   {
     "nickkadutskyi/jb.nvim",
@@ -98,6 +99,12 @@ require("lazy").setup({
   {
     'shaunsingh/nord.nvim'
   },
+  -- Github theme
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme'
+  },
+
   {
     'sainnhe/gruvbox-material',
     lazy = false,

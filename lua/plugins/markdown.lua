@@ -16,7 +16,7 @@ require('render-markdown').setup({
     -- | string     | `value`                                             |
     -- | string[]   | `cycle(value, context.level)`                       |
     -- | string[][] | `clamp(cycle(value, context.level), context.index)` |
-    icons = { '○', '●', '◆', '◇' },
+    icons = { '●', '○', '◆', '◇' },
     -- Replaces 'n.'|'n)' of 'list_item'.
     -- Output is evaluated using the same logic as 'icons'.
     ordered_icons = function(ctx)

@@ -1,12 +1,14 @@
-local null_ls = require('null-ls')
-
-null_ls.setup({
-  debug = true,
-  sources = {
-    null_ls.builtins.formatting.google_java_format.with({
-      filetypes = { "java" },
-    }),
-    null_ls.builtins.formatting.black,
-    null_ls.builtins.formatting.isort
-  },
+require("conform").setup({
+	formatters_by_ft = {
+		java = { "google-java-format" },
+		go = { "gofmt" },
+		lua = { "stylua" },
+		python = { "ruff_format", "isort" },
+		javascript = { "prettierd", "prettier", stop_after_first = true },
+		markdown = { "prettierd", "prettier", stop_after_first = true },
+	},
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true,
+	},
 })

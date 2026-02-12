@@ -8,9 +8,9 @@ vim.g.molten_virt_text_output = false
 vim.g.molten_auto_open_output = true
 
 require("image").setup({
-  backend = "kitty",                        
-  max_width = 100,                         
-  max_height = 12,                        
+  backend = "kitty",
+  max_width = 300,
+  max_height = 36,
   integrations = { markdown = { enabled = true } },
   max_height_window_percentage = math.huge,
   max_width_window_percentage = math.huge,

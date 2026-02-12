@@ -2,9 +2,9 @@ local lspconfig = require('lspconfig')
 
 vim.opt.signcolumn = 'yes'
 vim.diagnostic.config({
-  virtual_text = true,   
-  signs = true,         
-  underline = true,    
+  virtual_text = true,
+  signs = true,
+  underline = true,
   update_in_insert = false,
 })
 
@@ -28,7 +28,6 @@ require("mason").setup({
 require('mason-lspconfig').setup({
   ensure_installed = {
     "lua_ls",
-    "kotlin_language_server",
     "vtsls",
     "pyright",
     "gopls",

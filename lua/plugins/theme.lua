@@ -6,7 +6,7 @@ require("rose-pine").setup({
 
 
 require("vague").setup({
-  transparent = false, 
+  transparent = false,
   style = {
     -- "none" is the same thing as default. But "italic" and "bold" are also valid options
     boolean = "bold",
@@ -84,10 +84,10 @@ require("vague").setup({
     delta = "#f3be7c",
   },
 })
-vim.g.gruvbox_material_background = "hard"      -- "soft", "medium", "hard"
-vim.g.gruvbox_material_enable_italic = 1        -- 0 or 1
+vim.g.gruvbox_material_background = "hard" -- "soft", "medium", "hard"
+vim.g.gruvbox_material_enable_italic = 1   -- 0 or 1
 vim.g.gruvbox_material_enable_bold = 1
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_foreground = 'material'
 
-vim.cmd("colorscheme vague")
+vim.cmd.colorscheme("github_dark_default")

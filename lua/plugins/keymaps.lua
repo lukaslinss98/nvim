@@ -1,5 +1,6 @@
 -- telescope
 local builtin = require('telescope.builtin')
+
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {
   desc = 'Telescope find files',
 })
@@ -46,11 +47,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>ws', builtin.lsp_workspace_symbols, opts)
 
     -- Code actions and refactor
-    vim.keymap.set('n', 'ca', vim.lsp.buf.code_action, opts)
+    if vim.lsp.buf.range_code_action then
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.range_code_action, { buffer = 0, desc = "Range code action." })
+    else
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0, desc = "Code action." })
+    end
 
     -- format
     vim.keymap.set({ 'n', 'x' }, '<leader>fc', function()
-      vim.lsp.buf.format({ async = true })
-    end, { desc = '[f]ormat [c]ode', buffer = event.buf })
+      require("conform").format({
+        async = true,
+        lsp_fallback = true,
+      })
+    end, { desc = '[f]ormat [c]ode' })
   end,
 })
