@@ -1,267 +1,248 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim
 require("lazy").setup({
 
-  -- formatting manager
-  {
-    'stevearc/conform.nvim',
-  },
-  {
-    'nvim-java/nvim-java',
-    config = function()
-      require('java').setup()
-      vim.lsp.enable('jdtls')
-    end,
-  },
+	-- lazy.nvim
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	},
 
-  {
-    "benlubas/molten-nvim",
-    version = "^1.0.0",
-    build = ":UpdateRemotePlugins",
-    dependencies = {
-      "3rd/image.nvim",
-    },
-    event = { "BufReadPre *.py", "BufNewFile *.py" },
-  },
+	-- formatting manager
+	{
+		"stevearc/conform.nvim",
+	},
+	{
+		"nvim-java/nvim-java",
+		config = function()
+			require("java").setup()
+			vim.lsp.enable("jdtls")
+		end,
+	},
+	{
+		"benlubas/molten-nvim",
+		version = "^1.0.0",
+		build = ":UpdateRemotePlugins",
+		dependencies = {
+			"3rd/image.nvim",
+		},
+		event = { "BufReadPre *.py", "BufNewFile *.py" },
+	},
+	{ "3rd/image.nvim", event = "VeryLazy" },
+	-- intellij theme
+	{
+		"nickkadutskyi/jb.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
+	-- snacks
+	{
+		"folke/snacks.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
 
-  { "3rd/image.nvim",            event = "VeryLazy" },
-  -- intellij theme
-  {
-    "nickkadutskyi/jb.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  -- snacks
-  {
-    "folke/snacks.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
+	-- oil
+	{
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		lazy = false,
+	},
 
-  -- oil
-  {
-    'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
-  },
+	-- oil git
+	{
+		"benomahony/oil-git.nvim",
+		dependencies = { "stevearc/oil.nvim" },
+	},
 
-  -- oil git
-  {
-    "benomahony/oil-git.nvim",
-    dependencies = { "stevearc/oil.nvim" },
-  },
+	-- render-markdown
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+	},
 
-  -- notifications
-  {
-    'rcarriga/nvim-notify',
-    config = function()
-      local notify = require("notify")
-      notify.setup({
-        stages = "fade_in_slide_out",
-      })
-      vim.notify = notify
-    end,
-  },
+	-- obsidian
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*", -- recommended, use latest release instead of latest commit
+		lazy = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+	{
+		"shaunsingh/nord.nvim",
+	},
+	-- Github theme
+	{
+		"projekt0n/github-nvim-theme",
+		name = "github-theme",
+	},
 
-  -- render-markdown
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-  },
+	{
+		"sainnhe/gruvbox-material",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"zenbones-theme/zenbones.nvim",
+		dependencies = "rktjmp/lush.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	-- tokyonight
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 
-  -- obsidian
-  {
-    "epwalsh/obsidian.nvim",
-    version = "*", -- recommended, use latest release instead of latest commit
-    lazy = true,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
-    'shaunsingh/nord.nvim'
-  },
-  -- Github theme
-  {
-    'projekt0n/github-nvim-theme',
-    name = 'github-theme'
-  },
+	-- vim-tmux-navigator
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+			"TmuxNavigatorProcessList",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
 
-  {
-    'sainnhe/gruvbox-material',
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  -- tokyonight
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
+	-- vague theme
+	{ "vague2k/vague.nvim" },
 
-  -- vim-tmux-navigator
-  {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-      "TmuxNavigatorProcessList",
-    },
-    keys = {
-      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  },
+	-- monokai pro theme
+	{
+		"loctvl842/monokai-pro.nvim",
+		name = "monokai",
+	},
 
-  -- vague theme
-  { "vague2k/vague.nvim" },
+	-- catppuccin theme
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+	},
 
-  -- fleet dark theme
-  { "felipeagc/fleet-theme-nvim" },
+	-- rose-pine theme
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+	},
 
-  -- monokai pro theme
-  {
-    'loctvl842/monokai-pro.nvim',
-    name = 'monokai'
-  },
+	-- telescope
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.8",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+			},
+		},
+	},
 
-  -- catppuccin theme
-  {
-    'catppuccin/nvim',
-    name = "catppuccin"
-  },
+	-- bufferline
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+	},
 
-  -- vesper theme
-  { 'datsfilipe/vesper.nvim' },
+	-- blink
+	{
+		"saghen/blink.cmp",
+		-- optional: provides snippets for the snippet source
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"nvim-mini/mini.nvim",
+		},
+		version = "1.*",
+	},
 
-  -- rose-pine theme
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine'
-  },
+	-- LSP
+	{
+		"neovim/nvim-lspconfig",
+		cmd = { "LspInfo", "LspInstall", "LspStart" },
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+			{ "jay-babu/mason-nvim-dap.nvim" },
+		},
+	},
 
-  -- telescope
-  {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make'
-      }
-    }
+	-- treesitter
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate", -- Automatically update parsers after installation
+		event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
+	},
 
-  },
+	-- rename
+	{
+		"nvim-lua/plenary.nvim",
+		"filipdutescu/renamer.nvim",
+		branch = "master",
+	},
 
-  -- bufferline
-  {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons'
-  },
+	-- statusbar
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 
-  -- blink
-  {
-    'saghen/blink.cmp',
-    -- optional: provides snippets for the snippet source
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      'nvim-mini/mini.nvim'
-    },
-    version = '1.*'
-  },
+	-- smearcursor
+	{
+		"sphamba/smear-cursor.nvim",
+	},
 
-  -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter'
-  },
+	-- auto close
+	{
+		"m4xshen/autoclose.nvim",
+	},
 
-  -- LSP
-  {
-    'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-      { "jay-babu/mason-nvim-dap.nvim" },
+	-- which key
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+	},
 
-    },
-  },
-
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",                     -- Automatically update parsers after installation
-    event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
-  },
-
-  -- rename
-  {
-    'nvim-lua/plenary.nvim',
-    'filipdutescu/renamer.nvim',
-    branch = 'master',
-  },
-
-  -- statusbar
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
-  },
-
-  -- smearcursor
-  {
-    'sphamba/smear-cursor.nvim',
-  },
-
-  -- auto close
-  {
-    'm4xshen/autoclose.nvim'
-  },
-
-  -- which key
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-  },
-
-  -- lspkind
-  {
-    "onsails/lspkind.nvim",
-    lazy = true,
-  }
+	-- lspkind
+	{
+		"onsails/lspkind.nvim",
+		lazy = true,
+	},
 })
