@@ -86,7 +86,7 @@ require("lazy").setup({
 	-- obsidian
 	{
 		"epwalsh/obsidian.nvim",
-		version = "*", -- recommended, use latest release instead of latest commit
+		version = "*",
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -106,12 +106,7 @@ require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
-	{
-		"zenbones-theme/zenbones.nvim",
-		dependencies = "rktjmp/lush.nvim",
-		lazy = false,
-		priority = 1000,
-	},
+
 	-- tokyonight
 	{
 		"folke/tokyonight.nvim",
@@ -143,12 +138,6 @@ require("lazy").setup({
 	-- vague theme
 	{ "vague2k/vague.nvim" },
 
-	-- monokai pro theme
-	{
-		"loctvl842/monokai-pro.nvim",
-		name = "monokai",
-	},
-
 	-- catppuccin theme
 	{
 		"catppuccin/nvim",
@@ -164,7 +153,6 @@ require("lazy").setup({
 	-- telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -184,7 +172,6 @@ require("lazy").setup({
 	-- blink
 	{
 		"saghen/blink.cmp",
-		-- optional: provides snippets for the snippet source
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"nvim-mini/mini.nvim",
@@ -207,8 +194,8 @@ require("lazy").setup({
 	-- treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate", -- Automatically update parsers after installation
-		event = { "BufReadPost", "BufNewFile" }, -- Load Tree-sitter when opening files
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 
 	-- rename
@@ -222,11 +209,6 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-
-	-- smearcursor
-	{
-		"sphamba/smear-cursor.nvim",
 	},
 
 	-- auto close

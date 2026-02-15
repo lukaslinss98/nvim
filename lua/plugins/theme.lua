@@ -89,4 +89,12 @@ vim.g.gruvbox_material_enable_bold = 1
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_foreground = "material"
 
-vim.cmd.colorscheme("github_dark_tritanopia")
+require("tokyonight").setup({
+	transparent = true,
+	styles = {
+		sidebars = "transparent",
+		floats = "transparent",
+	},
+})
+
+vim.cmd.colorscheme("tokyonight-night")
