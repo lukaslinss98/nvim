@@ -16,7 +16,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-
+	-- smear-cursor
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
+	},
+	{
+		"MaximilianLloyd/ascii.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+	},
 	-- lazy.nvim
 	{
 		"folke/noice.nvim",
