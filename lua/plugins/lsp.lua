@@ -50,9 +50,31 @@ vim.lsp.config("pyright", {
 	},
 })
 
+vim.lsp.config("gopls", {
+	settings = {
+		hints = {
+			rangeVariableTypes = true,
+			parameterNames = true,
+			constantValues = true,
+			assignVariableTypes = true,
+			compositeLiteralFields = true,
+			compositeLiteralTypes = true,
+			functionTypeParameters = true,
+		},
+	},
+})
+
 vim.lsp.config("vtsls", {
 	settings = {
 		typescript = {
+			inlayHints = {
+				parameterNames = { enabled = "all" },
+				parameterTypes = { enabled = true },
+				variableTypes = { enabled = true },
+				propertyDeclarationTypes = { enabled = true },
+				functionLikeReturnTypes = { enabled = true },
+				enumMemberValues = { enabled = true },
+			},
 			suggest = {
 				completeFunctionCalls = true,
 			},
