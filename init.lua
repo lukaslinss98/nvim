@@ -1,5 +1,6 @@
 require("set")
 require("remap")
+require("autocommands")
 require("plugins.lazy")
 require("plugins.lsp")
 require("plugins.treesitter")

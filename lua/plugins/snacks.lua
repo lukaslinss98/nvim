@@ -2,7 +2,23 @@ require("snacks").setup({
 	image = { enabled = true },
 	bigfile = { enabled = true },
 	statuscolumn = { enabled = true },
-	picker = { enabled = true },
+	picker = {
+		actions = {
+			opencode_send = function(...)
+				return require("opencode").snacks_picker_send(...)
+			end,
+		},
+		win = {
+			input = {
+				keys = {
+					["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+				},
+			},
+		},
+	},
+	terminal = {
+		enabled = true,
+	},
 	indent = {
 		enable = true,
 		animate = {
