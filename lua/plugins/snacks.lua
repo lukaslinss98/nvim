@@ -16,9 +16,9 @@ require("snacks").setup({
 			},
 		},
 	},
-	terminal = {
-		enabled = true,
-	},
+	-- terminal = {
+	-- 	enabled = true,
+	-- },
 	indent = {
 		enable = true,
 		animate = {
