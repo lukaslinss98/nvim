@@ -33,6 +33,7 @@ require("mason-lspconfig").setup({
 		"cssls",
 		"tailwindcss",
 		"yamlls",
+		"rust_analyzer",
 	},
 	automatic_installation = true,
 })
@@ -127,3 +128,5 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
+
+vim.lsp.config("rust_analyzer", {})
