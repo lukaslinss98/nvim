@@ -1,4 +1,5 @@
 require("smear_cursor").setup({
+	enabled = false,
 	stiffness = 0.9,
 	trailing_stiffness = 0.9,
 	stiffness_insert_mode = 0.7,
