@@ -44,7 +44,7 @@ require("vague").setup({
 
 vim.g.gruvbox_material_background = "medium" -- "soft", "medium", "hard"
 vim.g.gruvbox_material_enable_italic = 1 -- 0 or 1
-vim.g.gruvbox_material_enable_bold = 1
+vim.g.gruvbox_material_enable_bold = 0
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_foreground = "material"
 
@@ -56,5 +56,5 @@ require("tokyonight").setup({
 	},
 })
 
---  vim.cmd.colorscheme("gruvbox-material")
+-- vim.cmd.colorscheme("gruvbox-material")
 vim.cmd.colorscheme("tokyonight-night")

@@ -17,11 +17,18 @@ require("nvim-treesitter.configs").setup({
 		"terraform",
 		"hcl",
 		"rust",
+		"helm",
 	},
 	highlight = {
 		enable = true,
 	},
 	indent = {
 		enable = true,
+	},
+})
+
+vim.filetype.add({
+	pattern = {
+		[".*/charts/templates/.*%.yaml"] = "helm",
 	},
 })

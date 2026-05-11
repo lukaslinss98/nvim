@@ -55,14 +55,14 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 -- LSP: highlight word under cursor
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+	group = "LspDocumentHighlight",
 	callback = function()
-		vim.lsp.buf.document_highlight()
-	end,
-})
-vim.api.nvim_create_autocmd("CursorMoved", {
-	callback = function()
-		vim.lsp.buf.clear_references()
+		vim.defer_fn(function()
+			vim.lsp.buf.clear_references()
+			vim.lsp.buf.document_highlight()
+		end, 200)
 	end,
 })
 

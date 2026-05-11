@@ -33,6 +33,7 @@ require("mason-lspconfig").setup({
 		"cssls",
 		"tailwindcss",
 		"yamlls",
+		"helm_ls",
 		"rust_analyzer",
 	},
 	automatic_installation = true,
@@ -130,3 +131,19 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.config("rust_analyzer", {})
+vim.lsp.config("yamlls", {
+	settings = {
+		yaml = {
+			validate = true,
+			disableAdditionalProperties = false,
+			schemas = {},
+		},
+	},
+	on_attach = function(client, bufnr)
+		local path = vim.api.nvim_buf_get_name(bufnr)
+		if path:match("charts/templates") then
+			client.server_capabilities.documentFormattingProvider = false
+			vim.diagnostic.enable(false, { bufnr = bufnr })
+		end
+	end,
+})
