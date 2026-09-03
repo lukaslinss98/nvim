@@ -1,212 +1,55 @@
 # AGENTS.md
 
-This file provides guidance for agentic coding agents working with this Neovim configuration
-repository.
-
 ## Overview
 
-This is a Neovim configuration using [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin
-manager. All configuration is written in Lua.
+This is a Neovim configuration using [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager. All configuration is written in Lua.
 
-## Project Structure
+## Architecture
 
-```
-nvim/
-├── init.lua                 # Entry point - loads core modules
-├── lua/
-│   ├── set.lua              # vim options (leader, tabs, clipboard)
-│   ├── remap.lua            # global keybindings
-│   ├── autocommands.lua     # auto-resize, yank highlight, etc.
-│   └── plugins/
-│       ├── lazy.lua         # lazy.nvim bootstrap + plugin specs
-│       ├── lsp.lua          # LSP servers (mason + lspconfig)
-│       ├── blink.lua        # blink.cmp completion engine
-│       ├── formatting.lua   # conform.nvim formatters
-│       ├── telescope.lua    # fuzzy finder
-│       ├── treesitter.lua    # syntax highlighting
-│       ├── theme.lua        # colorscheme
-│       ├── keymaps.lua      # LSP/Telescope keybindings
-│       └── snacks.lua       # dashboard, notifications
-├── ftplugin/                # filetype-specific config
-└── CLAUDE.md                # Claude Code guidance
-```
+### Entry Point
+`init.lua` loads core modules in order: `set.lua` → `remap.lua` → `autocommands.lua` → all files in `lua/plugins/`.
 
-## Build / Lint / Test Commands
+### Core Modules
+- `lua/set.lua` — vim options (leader key = space, 2-space tabs, system clipboard, etc.)
+- `lua/remap.lua` — core keybindings (buffer nav, window management, line movement)
+- `lua/autocommands.lua` — auto-resize, yank highlight, trailing whitespace removal, cursor restore
 
-This is a Neovim configuration repository, not a traditional software project. There are no build
-commands or formal tests.
+### Plugin Configuration
+Each plugin has its own file under `lua/plugins/`. Key files:
+- `lazy.lua` — lazy.nvim bootstrap and all plugin specs
+- `lsp.lua` — LSP servers (lua_ls, vtsls, pyright, gopls, rust_analyzer, html, cssls, tailwindcss, yamlls) + Mason auto-install
+- `blink.lua` — completion engine (blink.cmp), keymaps: Ctrl-p/n to navigate, Ctrl-y to accept
+- `keymaps.lua` — LSP and Telescope keybindings attached via `LspAttach` autocommand
+- `formatting.lua` — conform.nvim format-on-save (stylua, ruff+isort, prettier, gofmt, google-java-format)
+- `theme.lua` — colorscheme setup; currently active: TokyoNight Night
+- `telescope.lua` — fuzzy finder with custom path display and fzf native backend
+- `treesitter.lua` — syntax highlighting for 16 languages
+- `snacks.lua` — dashboard, image support, indent guides, notifications
 
-### Validation Commands
+### Keybinding Split
+Global keybindings live in `remap.lua`. Plugin-specific keybindings (LSP, Telescope) live in `keymaps.lua` and are registered via autocommands or plugin `keys` specs.
 
-```bash
-# Open Neovim and run health checks
-nvim --headless -c "checkhealth" -c "qa!"
+## Adding/Modifying Plugins
 
-# Check plugin status (run inside nvim)
-:Lazy
-
-# Check for configuration errors (run inside nvim)
-:nvim --version
-```
-
-### Plugin Management
-
-```bash
-# Sync plugins (run inside nvim)
-:Lazy sync
-
-# Update plugins (run inside nvim)
-:Lazy
-
-# Clean unused plugins (run inside nvim)
-:Lazy clean
-```
-
-### Formatters and Linters
-
-Formatters are configured via conform.nvim in `lua/plugins/formatting.lua`:
-
-- Lua: stylua
-- Python: ruff_format + isort
-- Java: google-java-format
-- Go: gofmt
-- JavaScript/Markdown: prettier
-
-Run format on save is enabled (timeout_ms: 500).
-
-## Code Style Guidelines
-
-### Indentation
-
-- **2 spaces** (no tabs)
-- `expandtab = true` is enabled globally
-- Use spaces consistently in all Lua files
-
-```lua
--- Correct
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-
--- Incorrect
-vim.opt.tabstop=2
-```
-
-### Lua Syntax
-
-- **No semicolons** at end of statements
-- Use `local` for variables unless explicitly global
-- Prefer `vim.keymap.set()` over `vim.api.nvim_set_keymap()`
-
-```lua
--- Preferred
-local lspconfig = require("lspconfig")
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw" })
-
--- Avoid
-local lspconfig = require("lspconfig");
-vim.api.nvim_set_keymap("n", "<leader>pv", ":Ex<CR>", { noremap = true });
-```
-
-### Table Formatting
-
-```lua
--- Use spaces inside braces
-local tbl = { key = "value", another = 123 }
-
--- Nested tables
-local nested = {
-    level1 = {
-        level2 = {
-            value = true
-        }
-    }
-}
-```
-
-### Plugin Spec Pattern
-
-When adding plugins to `lua/plugins/lazy.lua`:
+Add plugin specs to `lua/plugins/lazy.lua` or create a new file in `lua/plugins/`. The lazy.nvim pattern used here:
 
 ```lua
 {
-    "author/plugin-name",
-    dependencies = { "dependency/plugin" },
-    event = "BufReadPre",          -- or "VeryLazy", "Cmd", "ft"
-    opts = {},                     -- or config = function() ... end
-    keys = {
-        { "n", "<leader>key", function() ... end, { desc = "Description" } }
-    }
+  "author/plugin-name",
+  dependencies = { "other/plugin" },
+  config = function()
+    require("plugin-name").setup({ ... })
+  end,
 }
 ```
 
-### Keybinding Conventions
+For lazy loading: use `event`, `cmd`, or `ft` keys. For filetype-specific config: add files to `ftplugin/`.
 
-```lua
--- Use noremap and silent by default
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw", noremap = true, silent = true })
+## LSP Servers
 
--- Use descriptive desc field with brackets for grouping
-vim.keymap.set("n", "<leader>wl", "<c-w>h", { desc = "[W]indow [L]eft" })
+Managed by Mason. To add a new server: add it to the `ensure_installed` list in `lsp.lua` and configure it in the `lspconfig` setup section.
 
--- Use expr only when necessary
-vim.keymap.set("n", "goo", function()
-    return require("opencode").operator("@this ") .. "_"
-end, { desc = "Add line to opencode", expr = true })
-```
+## Formatters
 
-### Naming Conventions
+Configured in `formatting.lua` via conform.nvim. To add a formatter for a filetype, add it to the `formatters_by_ft` table and ensure the tool is in Mason's `ensure_installed`.
 
-- **Files**: snake_case.lua (e.g., `lsp_config.lua`, `formatting.lua`)
-- **Variables**: snake_case (e.g., `local lsp_defaults`)
-- **Functions**: snake_case (e.g., `function get_root_dir()`)
-- **Tables/Modules**: PascalCase for module names, snake_case for keys
-
-### Error Handling
-
-```lua
--- Simple shell error checking
-if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-        { out, "WarningMsg" },
-    }, true, {})
-    os.exit(1)
-end
-```
-
-### LSP Configuration
-
-- Use `vim.lsp.config()` for Neovim 0.11+ style
-- Use `root_pattern` from `lspconfig.util` for root directory detection
-- Extend capabilities with blink.cmp:
-
-```lua
-local lsp_defaults = lspconfig.util.default_config
-lsp_defaults.capabilities =
-    vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
-```
-
-### Imports and Requires
-
-```lua
--- Use local for all requires
-local lspconfig = require("lspconfig")
-local util = require("lspconfig.util")
-
--- Only expose globals when necessary (vim, require are implicit globals)
-```
-
-## Adding New Plugins
-
-1. Add plugin spec to `lua/plugins/lazy.lua` or create new file in `lua/plugins/`
-2. Use lazy loading via `event`, `cmd`, or `ft` keys when possible
-3. Add keybindings to appropriate file (global: `remap.lua`, LSP-specific: `keymaps.lua`)
-4. Add formatter if needed to `formatting.lua` conform config
-5. Add LSP server to `lsp.lua` if applicable
-
-## Filetype-Specific Configuration
-
-Place filetype-specific config in `ftplugin/` directory:
-
-- `ftplugin/python.lua` - Python-specific settings
-- `ftplugin/go.lua` - Go-specific settings
