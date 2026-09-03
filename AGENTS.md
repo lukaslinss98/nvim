@@ -22,7 +22,7 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `keymaps.lua` — global Telescope keys (`<leader>fa` files, `<leader>ff` git files, `<leader>fg` grep, `<leader>en` edit config, `<leader>ge` next diagnostic) plus LSP keys attached via `LspAttach` (`K`, `gd`, `gD`, `gi`, `go`, `gr`, `<leader>ds`/`ws` symbols, `<leader>ca` code action, `<leader>fc` format, `<leader>h` toggle inlay hints)
 - `blink.lua` — blink.cmp completion; Ctrl-p/n or arrows navigate, Ctrl-y/Tab/Enter accept, Ctrl-e hide, Ctrl-u/d scroll docs; sources: lsp, path, snippets, buffer
 - `formatting.lua` — conform.nvim format-on-save (500 ms, LSP fallback): stylua, ruff_format + isort, prettierd→prettier (javascript, markdown), gofmt, google-java-format
-- `theme.lua` — configures rose-pine, vague, gruvbox-material and tokyonight; **active colorscheme: gruvbox-material** (medium). Other themes installed: jb.nvim, nord, github-theme, catppuccin
+- `theme.lua` — configures rose-pine, vague, gruvbox-material, tokyonight and jb.nvim; **active colorscheme: gruvbox-material** (medium). Other themes installed: nord, github-theme, catppuccin
 - `telescope.lua` — fuzzy finder with custom path display and fzf-native backend
 - `treesitter.lua` — 18 parsers (lua, js/ts/tsx, python, go, html, css, bash, java, kotlin, markdown, turtle, yaml, terraform, hcl, rust, helm); maps `*/charts/templates/*.yaml` to the `helm` filetype
 - `snacks.lua` — dashboard, image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
@@ -32,11 +32,14 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `autoclose.lua` — bracket/quote auto-pairing (disabled for `text`)
 - `obsidian.lua` — obsidian.nvim, vault at `~/dev/obsidian/vault`, templates in `Templates/`
 - `markdown.lua` — render-markdown.nvim
-- `molten.lua` — molten-nvim + image.nvim (kitty backend) for Jupyter cells in python/markdown/quarto; quarto-nvim and jupytext are set up in `lazy.lua`
+- `molten.lua` — molten-nvim + image.nvim (kitty backend) for Jupyter cells in python/markdown/quarto
 - `tailwind-fold.lua` — tailwind-fold.nvim, folds long Tailwind class attributes
+- `java.lua` — nvim-java setup and enables `jdtls`; must run before `lsp.lua`
+- `noice.lua` — noice.nvim with LSP markdown overrides and bottom_search/command_palette presets
+- `smearcursor.lua` — smear-cursor.nvim (currently `enabled = false`)
 - `opencode.lua` — opencode.nvim: `<leader>oa` ask, `<leader>ot` toggle, `<C-x>` select action, `go`/`goo` operator to add ranges
 
-Configured directly in `lazy.lua` with `opts`/`config`: noice + nvim-notify, which-key, bufferline, vim-tmux-navigator (`<C-h/j/k/l>`), nvim-java (enables `jdtls`), smear-cursor, ascii.nvim.
+`lazy.lua` contains specs only, no `opts`/`config`. Plugins that need no setup call (which-key, bufferline, vim-tmux-navigator with `<C-h/j/k/l>` keys, ascii.nvim, nvim-notify) have no config file.
 
 ### Keybinding Split
 Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys (opencode, molten, oil) live in that plugin's config file.
@@ -47,7 +50,7 @@ Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `k
 2. Create `lua/plugins/<name>.lua` containing `require("plugin-name").setup({ ... })`.
 3. Add `require("plugins.<name>")` to `init.lua` after `require("plugins.lazy")`.
 
-Small plugins that only need `opts = {}` can be configured inline in `lazy.lua` instead of steps 2–3. There is no `ftplugin/` directory; filetype-specific behaviour is done with `FileType` autocommands.
+Do not put `opts`/`config` in `lazy.lua`. There is no `ftplugin/` directory; filetype-specific behaviour is done with `FileType` autocommands.
 
 ## LSP Servers
 

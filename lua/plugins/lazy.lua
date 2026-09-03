@@ -26,10 +26,7 @@ require("lazy").setup({
 			},
 		},
 	},
-	{
-		"sphamba/smear-cursor.nvim",
-		opts = {},
-	},
+	{ "sphamba/smear-cursor.nvim" },
 	{
 		"MaximilianLloyd/ascii.nvim",
 		dependencies = {
@@ -39,8 +36,6 @@ require("lazy").setup({
 	-- lazy.nvim
 	{
 		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
@@ -51,13 +46,7 @@ require("lazy").setup({
 	{
 		"stevearc/conform.nvim",
 	},
-	{
-		"nvim-java/nvim-java",
-		config = function()
-			require("java").setup()
-			vim.lsp.enable("jdtls")
-		end,
-	},
+	{ "nvim-java/nvim-java" },
 	{
 		"benlubas/molten-nvim",
 		version = "^1.0.0",
@@ -73,7 +62,6 @@ require("lazy").setup({
 		"nickkadutskyi/jb.nvim",
 		lazy = false,
 		priority = 1000,
-		opts = {},
 	},
 	-- snacks
 	{
@@ -131,7 +119,6 @@ require("lazy").setup({
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
-		opts = {},
 	},
 
 	-- vim-tmux-navigator

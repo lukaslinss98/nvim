@@ -48,6 +48,8 @@ vim.g.gruvbox_material_enable_bold = 0
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_foreground = "material"
 
+require("jb").setup({})
+
 require("tokyonight").setup({
 	transparent = false,
 	styles = {
