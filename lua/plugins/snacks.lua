@@ -1,6 +1,7 @@
 require("snacks").setup({
 	image = { enabled = true },
 	bigfile = { enabled = true },
+	notifier = { enabled = true },
 	statuscolumn = { enabled = true },
 	picker = {
 		actions = {

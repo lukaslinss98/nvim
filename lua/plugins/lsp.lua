@@ -40,8 +40,10 @@ require("mason-lspconfig").setup({
 })
 
 vim.lsp.config("pyright", {
-	root_dir = function(fname)
-		return util.root_pattern(".git", "pyrightconfig.json", "pyproject.toml")(fname) or vim.fs.dirname(fname)
+	-- nvim 0.11: root_dir receives (bufnr, on_dir)
+	root_dir = function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		on_dir(util.root_pattern(".git", "pyrightconfig.json", "pyproject.toml")(fname) or vim.fs.dirname(fname))
 	end,
 	settings = {
 		python = {
@@ -96,8 +98,8 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.config("tailwindcss", {
-	root_dir = function(fname)
-		return require("lspconfig.util").root_pattern(
+	root_dir = function(bufnr, on_dir)
+		local root = util.root_pattern(
 			"tailwind.config.js",
 			"tailwind.config.ts",
 			"postcss.config.js",
@@ -105,7 +107,10 @@ vim.lsp.config("tailwindcss", {
 			"package.json",
 			"node_modules",
 			".git"
-		)(fname)
+		)(vim.api.nvim_buf_get_name(bufnr))
+		if root then
+			on_dir(root)
+		end
 	end,
 })
 

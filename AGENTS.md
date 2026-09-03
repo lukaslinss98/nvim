@@ -19,13 +19,13 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 
 - `lazy.lua` — lazy.nvim bootstrap and all plugin specs
 - `lsp.lua` — Mason + mason-lspconfig (`lua_ls`, `vtsls`, `pyright`, `gopls`, `html`, `cssls`, `tailwindcss`, `yamlls`, `helm_ls`, `rust_analyzer`) with per-server `vim.lsp.config(...)` overrides; inlay hints enabled for gopls/vtsls/lua_ls; yamlls disables formatting and diagnostics under `charts/templates`
-- `keymaps.lua` — global Telescope keys (`<leader>fa` files, `<leader>ff` git files, `<leader>fg` grep, `<leader>en` edit config, `<leader>ge` next diagnostic) plus LSP keys attached via `LspAttach` (`K`, `gd`, `gD`, `gi`, `go`, `gr`, `<leader>ds`/`ws` symbols, `<leader>ca` code action, `<leader>fc` format, `<leader>h` toggle inlay hints)
+- `keymaps.lua` — global Telescope keys (`<leader>fa` files, `<leader>ff` git files, `<leader>fg` grep, `<leader>en` edit config, `<leader>ge`/`gE` next/prev diagnostic, `<leader>gd` diagnostic float, `<leader>gq` diagnostics to loclist) plus LSP keys attached via `LspAttach` (`K`, `gd`, `gD`, `gi`, `go`, `gr`, `<leader>ds`/`ws` symbols, `<leader>ca` code action, `<leader>fc` format, `<leader>h` toggle inlay hints)
 - `blink.lua` — blink.cmp completion; Ctrl-p/n or arrows navigate, Ctrl-y/Tab/Enter accept, Ctrl-e hide, Ctrl-u/d scroll docs; sources: lsp, path, snippets, buffer
 - `formatting.lua` — conform.nvim format-on-save (500 ms, LSP fallback): stylua, ruff_format + isort, prettierd→prettier (javascript, markdown), gofmt, google-java-format
 - `theme.lua` — configures rose-pine, vague, gruvbox-material, tokyonight and jb.nvim; **active colorscheme: gruvbox-material** (medium). Other themes installed: nord, github-theme, catppuccin
 - `telescope.lua` — fuzzy finder with custom path display and fzf-native backend
 - `treesitter.lua` — 18 parsers (lua, js/ts/tsx, python, go, html, css, bash, java, kotlin, markdown, turtle, yaml, terraform, hcl, rust, helm); maps `*/charts/templates/*.yaml` to the `helm` filetype
-- `snacks.lua` — dashboard, image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
+- `snacks.lua` — dashboard, notifier, image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
 - `oil.lua` — oil.nvim as default file explorer (with oil-git)
 - `statusbar.lua` — lualine, shows attached LSP clients
 - `rename.lua` — renamer.nvim popup rename
@@ -35,11 +35,11 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `molten.lua` — molten-nvim + image.nvim (kitty backend) for Jupyter cells in python/markdown/quarto
 - `tailwind-fold.lua` — tailwind-fold.nvim, folds long Tailwind class attributes
 - `java.lua` — nvim-java setup and enables `jdtls`; must run before `lsp.lua`
-- `noice.lua` — noice.nvim with LSP markdown overrides and bottom_search/command_palette presets
+- `noice.lua` — noice.nvim: LSP markdown overrides, auto signature help, bordered docs, routes that hide write/search/yank noise; `<leader>nh`/`nl`/`nd` history/last/dismiss, `<C-f>`/`<C-b>` scroll hover docs. Notifications render via the snacks notifier
 - `smearcursor.lua` — smear-cursor.nvim (currently `enabled = false`)
 - `opencode.lua` — opencode.nvim: `<leader>oa` ask, `<leader>ot` toggle, `<C-x>` select action, `go`/`goo` operator to add ranges
 
-`lazy.lua` contains specs only, no `opts`/`config`. Plugins that need no setup call (which-key, bufferline, vim-tmux-navigator with `<C-h/j/k/l>` keys, ascii.nvim, nvim-notify) have no config file.
+`lazy.lua` contains specs only, no `opts`/`config`. Plugins that need no setup call (which-key, bufferline, vim-tmux-navigator with `<C-h/j/k/l>` keys, ascii.nvim) have no config file.
 
 ### Keybinding Split
 Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys (opencode, molten, oil) live in that plugin's config file.

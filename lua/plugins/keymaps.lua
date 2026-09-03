@@ -12,7 +12,14 @@ vim.keymap.set("n", "<leader>en", function()
 	})
 end, { desc = "Telescope Edit NeoVim" })
 
-vim.keymap.set("n", "<leader>ge", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<leader>ge", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<leader>gE", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go to previous diagnostic" })
+vim.keymap.set("n", "<leader>gd", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+vim.keymap.set("n", "<leader>gq", vim.diagnostic.setloclist, { desc = "Diagnostics to location list" })
 
 -- LSP keybindings
 vim.api.nvim_create_autocmd("LspAttach", {
