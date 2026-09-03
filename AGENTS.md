@@ -25,7 +25,7 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `theme.lua` — configures rose-pine, vague, gruvbox-material, tokyonight and jb.nvim; **active colorscheme: gruvbox-material** (medium). Other themes installed: nord, github-theme, catppuccin
 - `telescope.lua` — fuzzy finder with custom path display and fzf-native backend
 - `treesitter.lua` — 18 parsers (lua, js/ts/tsx, python, go, html, css, bash, java, kotlin, markdown, turtle, yaml, terraform, hcl, rust, helm); maps `*/charts/templates/*.yaml` to the `helm` filetype
-- `snacks.lua` — dashboard, notifier, image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
+- `snacks.lua` — dashboard, notifier, explorer (`<leader>ee` toggle, `<leader>ef` reveal file; oil stays the directory handler), image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
 - `oil.lua` — oil.nvim as default file explorer (with oil-git)
 - `statusbar.lua` — lualine, shows attached LSP clients
 - `rename.lua` — renamer.nvim popup rename

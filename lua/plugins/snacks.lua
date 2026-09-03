@@ -2,6 +2,7 @@ require("snacks").setup({
 	image = { enabled = true },
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
+	explorer = { enabled = true, replace_netrw = false },
 	statuscolumn = { enabled = true },
 	picker = {
 		actions = {
@@ -84,3 +85,10 @@ require("snacks").setup({
 		mermaid = false,
 	},
 })
+
+vim.keymap.set("n", "<leader>ee", function()
+	Snacks.explorer()
+end, { desc = "[E]xplorer toggle" })
+vim.keymap.set("n", "<leader>ef", function()
+	Snacks.explorer.reveal()
+end, { desc = "[E]xplorer reveal current [F]ile" })
