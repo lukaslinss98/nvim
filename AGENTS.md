@@ -28,7 +28,6 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `snacks.lua` — dashboard, notifier, explorer (`<leader>ee` toggle, `<leader>ef` reveal file; oil stays the directory handler), image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
 - `oil.lua` — oil.nvim as default file explorer (with oil-git)
 - `statusbar.lua` — lualine, shows attached LSP clients
-- `rename.lua` — renamer.nvim popup rename
 - `autoclose.lua` — bracket/quote auto-pairing (disabled for `text`)
 - `obsidian.lua` — obsidian.nvim, vault at `~/dev/obsidian/vault`, templates in `Templates/`
 - `markdown.lua` — render-markdown.nvim

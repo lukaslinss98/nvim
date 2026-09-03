@@ -203,13 +203,6 @@ require("lazy").setup({
 		event = { "BufReadPost", "BufNewFile" },
 	},
 
-	-- rename
-	{
-		"nvim-lua/plenary.nvim",
-		"filipdutescu/renamer.nvim",
-		branch = "master",
-	},
-
 	-- statusbar
 	{
 		"nvim-lualine/lualine.nvim",
