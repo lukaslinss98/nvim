@@ -7,11 +7,11 @@ This is a Neovim configuration using [lazy.nvim](https://github.com/folke/lazy.n
 ## Architecture
 
 ### Entry Point
-`init.lua` requires modules explicitly, in a fixed order: `set` → `remap` → `autocommands` → `plugins.lazy` (installs plugins) → the individual `plugins.*` config modules. Files under `lua/plugins/` are **not** auto-loaded; a new config file must be added to `init.lua` after `plugins.lazy`. (`noice.lua` and `smearcursor.lua` currently exist but are not required.)
+`init.lua` requires modules explicitly, in a fixed order: `set` → `remap` → `autocommands` → `plugins.lazy` (installs plugins) → the individual `plugins.*` config modules. Files under `lua/plugins/` are **not** auto-loaded; a new config file must be added to `init.lua` after `plugins.lazy`.
 
 ### Core Modules
-- `lua/set.lua` — vim options (leader key = space, 2-space tabs, relative numbers, system clipboard, no wrap, scrolloff 10)
-- `lua/remap.lua` — core keybindings: `J`/`K` move lines, `<leader>n`/`p`/`x` buffer next/prev/delete, `<leader>w{c,l,r,d,u}` window close/navigate, `<leader>pv` netrw
+- `lua/set.lua` — vim options (leader key = space, 2-space tabs, relative numbers, system clipboard, autoread, no wrap, scrolloff 10)
+- `lua/remap.lua` — core keybindings: `J`/`K` move lines, `<leader>n`/`p`/`x` buffer next/prev/delete, `<leader>w{c,l,r,d,u}` window close/navigate, `<leader>pv` netrw, `+`/`-` increment/decrement
 - `lua/autocommands.lua` — auto-resize on `VimResized`, yank highlight, strip trailing whitespace on save, restore cursor position, absolute numbers in insert mode, `q` closes help/man/qf buffers, mkdir parent dirs on save, terminal enters insert mode without numbers, LSP document highlight under cursor, wrap + spell for markdown/text/gitcommit
 
 ### Plugin Configuration
@@ -25,7 +25,7 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `theme.lua` — configures rose-pine, vague, gruvbox-material, tokyonight and jb.nvim; **active colorscheme: gruvbox-material** (medium). Other themes installed: nord, github-theme, catppuccin
 - `telescope.lua` — fuzzy finder with custom path display and fzf-native backend
 - `treesitter.lua` — 18 parsers (lua, js/ts/tsx, python, go, html, css, bash, java, kotlin, markdown, turtle, yaml, terraform, hcl, rust, helm); maps `*/charts/templates/*.yaml` to the `helm` filetype
-- `snacks.lua` — dashboard, notifier, explorer (`<leader>ee` toggle, `<leader>ef` reveal file; oil stays the directory handler), image support, bigfile, statuscolumn, indent guides, picker with `<a-a>` to send to opencode
+- `snacks.lua` — dashboard, notifier, explorer (`<leader>ee` toggle, `<leader>ef` reveal file; oil stays the directory handler), image support, bigfile, statuscolumn, indent guides
 - `oil.lua` — oil.nvim as default file explorer (with oil-git)
 - `statusbar.lua` — lualine, shows attached LSP clients
 - `autoclose.lua` — bracket/quote auto-pairing (disabled for `text`)
@@ -36,12 +36,11 @@ Plugin **specs** live in `lua/plugins/lazy.lua` and are mostly bare (`{ "author/
 - `java.lua` — nvim-java setup and enables `jdtls`; must run before `lsp.lua`
 - `noice.lua` — noice.nvim: LSP markdown overrides, auto signature help, bordered docs, routes that hide write/search/yank noise; `<leader>nh`/`nl`/`nd` history/last/dismiss, `<C-f>`/`<C-b>` scroll hover docs. Notifications render via the snacks notifier
 - `smearcursor.lua` — smear-cursor.nvim (currently `enabled = false`)
-- `opencode.lua` — opencode.nvim: `<leader>oa` ask, `<leader>ot` toggle, `<C-x>` select action, `go`/`goo` operator to add ranges
 
-`lazy.lua` contains specs only, no `opts`/`config`. Plugins that need no setup call (which-key, bufferline, vim-tmux-navigator with `<C-h/j/k/l>` keys, ascii.nvim) have no config file.
+`lazy.lua` contains specs only, no `opts`/`config`. Plugins that need no setup call (which-key, vim-tmux-navigator with `<C-h/j/k/l>` keys, ascii.nvim) have no config file.
 
 ### Keybinding Split
-Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys (opencode, molten, oil) live in that plugin's config file.
+Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys (molten, oil) live in that plugin's config file.
 
 ## Adding/Modifying Plugins
 

@@ -18,3 +18,5 @@ vim.g.mapleader = " "
 vim.opt.fillchars = { eob = " " }
 
 vim.opt.clipboard = "unnamedplus"
+
+vim.opt.autoread = true

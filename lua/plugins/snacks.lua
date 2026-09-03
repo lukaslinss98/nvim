@@ -4,20 +4,6 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	explorer = { enabled = true, replace_netrw = false },
 	statuscolumn = { enabled = true },
-	picker = {
-		actions = {
-			opencode_send = function(...)
-				return require("opencode").snacks_picker_send(...)
-			end,
-		},
-		win = {
-			input = {
-				keys = {
-					["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
-				},
-			},
-		},
-	},
 	-- terminal = {
 	-- 	enabled = true,
 	-- },

@@ -16,16 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{
-		"nickjvandyke/opencode.nvim",
-		version = "*",
-		dependencies = {
-			{
-				"folke/snacks.nvim",
-				optional = true,
-			},
-		},
-	},
 	{ "sphamba/smear-cursor.nvim" },
 	{
 		"MaximilianLloyd/ascii.nvim",
@@ -167,13 +157,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- bufferline
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
-
 	-- blink
 	{
 		"saghen/blink.cmp",
@@ -224,11 +207,5 @@ require("lazy").setup({
 	{
 		"razak17/tailwind-fold.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-	},
-
-	-- lspkind
-	{
-		"onsails/lspkind.nvim",
-		lazy = true,
 	},
 })

@@ -31,7 +31,6 @@ require('blink.cmp').setup({
         columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
         components = (function()
           local mini_icons_ok, mini_icons = pcall(require, "mini.icons")
-          local lspkind_ok, lspkind = pcall(require, "lspkind")
 
           return {
             kind_icon = {
@@ -46,15 +45,8 @@ require('blink.cmp').setup({
                   end
                 end
 
-                if lspkind_ok then
-                  local icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
-                  if icon then
-                    return icon .. ctx.icon_gap
-                  end
-                end
-
-                -- fallback: no icon
-                return ctx.icon_gap or ""
+                -- fall back to blink's built-in kind icon
+                return ctx.kind_icon .. ctx.icon_gap
               end,
 
               highlight = function(ctx)

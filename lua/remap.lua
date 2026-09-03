@@ -20,3 +20,7 @@ vim.keymap.set("n", "<leader>wl", "<c-w>h", { desc = "[W]indow [L]eft" })
 vim.keymap.set("n", "<leader>wr", "<c-w>l", { desc = "[W]indow [R]ight" })
 vim.keymap.set("n", "<leader>wd", "<c-w>j", { desc = "[W]indow [D]own" })
 vim.keymap.set("n", "<leader>wu", "<c-w>k", { desc = "[W]indow [U]p" })
+
+-- increment / decrement number under cursor
+vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
+vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
