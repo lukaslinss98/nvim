@@ -40,7 +40,7 @@ require("mason-lspconfig").setup({
 })
 
 vim.lsp.config("pyright", {
-	seroot_dir = function(fname)
+	root_dir = function(fname)
 		return util.root_pattern(".git", "pyrightconfig.json", "pyproject.toml")(fname) or vim.fs.dirname(fname)
 	end,
 	settings = {

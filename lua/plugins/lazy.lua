@@ -16,27 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  {
-    "GCBallesteros/jupytext.nvim",
-    config = true,
-  },
-	{
-		"quarto-dev/quarto-nvim",
-		ft = { "quarto", "markdown" },
-		dependencies = {
-			"jmbuhr/otter.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		opts = {
-			lspFeatures = {
-				languages = { "r", "python", "julia", "bash", "julia" },
-			},
-			codeRunner = {
-				default_method = "molten",
-				ft_runners = { python = "molten" },
-			},
-		},
-	},
 	{
 		"nickjvandyke/opencode.nvim",
 		version = "*",
@@ -260,6 +239,12 @@ require("lazy").setup({
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+	},
+
+	-- tailwind-fold
+	{
+		"razak17/tailwind-fold.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
 
 	-- lspkind
