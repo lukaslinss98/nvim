@@ -54,15 +54,34 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	end,
 })
 
--- LSP: highlight word under cursor
-vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+-- LSP: highlight word under cursor (only for servers that support it)
+vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
+vim.api.nvim_create_autocmd("LspAttach", {
 	group = "LspDocumentHighlight",
-	callback = function()
-		vim.defer_fn(function()
-			vim.lsp.buf.clear_references()
-			vim.lsp.buf.document_highlight()
-		end, 200)
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if not client or not client:supports_method("textDocument/documentHighlight") then
+			return
+		end
+
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+			group = "LspDocumentHighlight",
+			buffer = args.buf,
+			callback = vim.lsp.buf.document_highlight,
+		})
+		vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+			group = "LspDocumentHighlight",
+			buffer = args.buf,
+			callback = vim.lsp.buf.clear_references,
+		})
+	end,
+})
+
+vim.api.nvim_create_autocmd("LspDetach", {
+	group = "LspDocumentHighlight",
+	callback = function(args)
+		vim.lsp.buf.clear_references()
+		vim.api.nvim_clear_autocmds({ group = "LspDocumentHighlight", buffer = args.buf })
 	end,
 })
 
