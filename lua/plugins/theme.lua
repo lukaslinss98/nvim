@@ -51,12 +51,12 @@ vim.g.gruvbox_material_foreground = "material"
 require("jb").setup({})
 
 require("tokyonight").setup({
-	transparent = false,
+	transparent = true,
 	styles = {
 		sidebars = "transparent",
 		floats = "transparent",
 	},
 })
 
-vim.cmd.colorscheme("gruvbox-material")
--- vim.cmd.colorscheme("tokyonight-night")
+-- vim.cmd.colorscheme("gruvbox-material")
+vim.cmd.colorscheme("tokyonight-night")

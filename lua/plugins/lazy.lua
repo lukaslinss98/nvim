@@ -110,26 +110,17 @@ require("lazy").setup({
 		priority = 1000,
 	},
 
-	-- vim-tmux-navigator
+	-- vim-herdr-navigation (herdr-aware, falls back to tmux/plain wincmd)
 	{
 		"christoomey/vim-tmux-navigator",
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
-			"TmuxNavigatorProcessList",
-		},
-		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-		},
+		lazy = false,
+		init = function()
+			vim.g.tmux_navigator_no_mappings = 1
+		end,
+		config = function()
+			dofile(vim.fn.expand("~/.config/herdr/vim-herdr-navigation/editor/nvim.lua"))
+		end,
 	},
-
 	-- vague theme
 	{ "vague2k/vague.nvim" },
 
