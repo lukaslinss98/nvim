@@ -42,6 +42,7 @@ return {
 				"lua_ls",
 				"vtsls",
 				"pyright",
+				"prismals",
 				"gopls",
 				"html",
 				"cssls",
