@@ -195,7 +195,12 @@ require("lazy").setup({
 		event = "VeryLazy",
 	},
 
-	-- tailwind-fold
+	-- codediff
+{
+	"esmuellert/codediff.nvim",
+	cmd = "CodeDiff",
+},
+-- tailwind-fold
 	{
 		"razak17/tailwind-fold.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },

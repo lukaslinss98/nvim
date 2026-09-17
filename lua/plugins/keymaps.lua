@@ -18,7 +18,7 @@ end, { desc = "Go to next diagnostic" })
 vim.keymap.set("n", "<leader>gE", function()
 	vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Go to previous diagnostic" })
-vim.keymap.set("n", "<leader>gd", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+vim.keymap.set("n", "<leader>gD", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
 vim.keymap.set("n", "<leader>gq", vim.diagnostic.setloclist, { desc = "Diagnostics to location list" })
 
 -- LSP keybindings
