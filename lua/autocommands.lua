@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 
 -- Close utility buffers with 'q'
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "help", "man", "qf", "lspinfo", "checkhealth" },
+	pattern = { "help", "man", "qf", "lspinfo", "checkhealth", "dbout" },
 	callback = function()
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true })
 	end,

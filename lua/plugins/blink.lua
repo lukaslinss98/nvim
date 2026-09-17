@@ -2,6 +2,7 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
+		"kristijanhusak/vim-dadbod-completion",
 	},
 	version = "1.*",
 	config = function()
@@ -104,6 +105,15 @@ return {
 
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
+				-- SQL buffers (incl. DBUI query buffers): schema-aware dadbod completion, no LSP
+				per_filetype = {
+					sql = { "dadbod", "snippets", "buffer" },
+					mysql = { "dadbod", "snippets", "buffer" },
+					plsql = { "dadbod", "snippets", "buffer" },
+				},
+				providers = {
+					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+				},
 			},
 
 			fuzzy = { implementation = "prefer_rust_with_warning" },

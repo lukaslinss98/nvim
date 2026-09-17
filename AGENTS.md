@@ -36,11 +36,12 @@ Each file under `lua/plugins/` returns a lazy.nvim spec (`return { "author/plugi
 - `java.lua` — nvim-java setup and enables `jdtls`; loaded as a dependency of the lsp spec (ordering guaranteed by lazy, not `init.lua`)
 - `noice.lua` — noice.nvim: LSP markdown overrides, auto signature help, bordered docs, routes that hide write/search/yank noise; `<leader>nh`/`nl`/`nd` history/last/dismiss, `<C-f>`/`<C-b>` scroll hover docs. Notifications render via the snacks notifier
 - `smearcursor.lua` — smear-cursor.nvim (currently `enabled = false`)
+- `dadbod.lua` — vim-dadbod + vim-dadbod-ui + vim-dadbod-completion SQL client. DBUI is `cmd`-lazy with `<leader>db` toggle, `<leader>df` find buffer, `<leader>da` add connection; `vim.g.db_ui_*` options set in `init` (nerd fonts, save location under `stdpath("data")/dadbod_ui`, `execute_on_save` off — run queries with DBUI's `<leader>S`). Also disables Neovim's built-in `sql_completion` omnifunc. Completion is wired into blink via the native `vim_dadbod_completion.blink` source: `blink.lua` declares a `dadbod` provider and `sources.per_filetype` for sql/mysql/plsql (no blink.compat needed). Connections come from `:DBUIAddConnection`, `$DBUI_URL`, or `vim.g.dbs`; none live in the repo. `q` closes `dbout` result windows (autocommands.lua)
 
 Small dependency-only plugins are folded in where they belong: ascii.nvim lives in the telescope spec's `dependencies`, oil-git in oil's, friendly-snippets in blink's; image.nvim is a co-spec in `molten.lua`. Standalone no-setup specs are `which-key.lua` and `tmux-navigator.lua` (the latter with herdr `<C-h/j/k/l>` mappings).
 
 ### Keybinding Split
-Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `config/keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys use lazy `keys` in that plugin's spec (oil `<leader>pv`, snacks `<leader>ee`/`ef`, noice `<leader>nh`/`nl`/`nd` + `<C-f>`/`<C-b>`, codediff `<leader>gd`); molten keeps a `FileType` autocommand for buffer-local maps.
+Global keybindings live in `remap.lua`. Telescope and LSP keybindings live in `config/keymaps.lua` (LSP ones via `LspAttach`). Plugin-specific keys use lazy `keys` in that plugin's spec (oil `<leader>pv`, snacks `<leader>ee`/`ef`, noice `<leader>nh`/`nl`/`nd` + `<C-f>`/`<C-b>`, lazygit `<leader>gg`/`gc`/`gf`/`gF`/`gb`, dadbod `<leader>db`/`df`/`da`); molten keeps a `FileType` autocommand for buffer-local maps.
 
 ## Adding/Modifying Plugins
 

@@ -35,6 +35,7 @@ return {
 				{ mode = "x", keys = "z" },
 			},
 			clues = {
+				{ mode = "n", keys = "<Leader>d", desc = "+Database / symbols" },
 				clue.gen_clues.builtin_completion(),
 				clue.gen_clues.g(),
 				clue.gen_clues.marks(),
