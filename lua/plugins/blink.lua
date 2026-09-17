@@ -2,7 +2,6 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
-		"nvim-mini/mini.nvim",
 	},
 	version = "1.*",
 	config = function()
