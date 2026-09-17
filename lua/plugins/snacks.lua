@@ -1,44 +1,66 @@
-require("snacks").setup({
-	image = { enabled = true },
-	bigfile = { enabled = true },
-	notifier = { enabled = true },
-	explorer = { enabled = true, replace_netrw = false },
-	statuscolumn = { enabled = true },
-	-- terminal = {
-	-- 	enabled = true,
-	-- },
-	indent = {
-		enable = true,
-		animate = {
-			enabled = false,
+return {
+	"folke/snacks.nvim",
+	lazy = false, -- dashboard must load at startup; `keys` alone would defer it
+	dependencies = {
+		"nvim-treesitter/nvim-treesitter",
+	},
+	keys = {
+		{
+			"<leader>ee",
+			function()
+				Snacks.explorer()
+			end,
+			desc = "[E]xplorer toggle",
+		},
+		{
+			"<leader>ef",
+			function()
+				Snacks.explorer.reveal()
+			end,
+			desc = "[E]xplorer reveal current [F]ile",
 		},
 	},
-	input = {
-		icon = " ",
-		icon_hl = "SnacksInputIcon",
-		icon_pos = "left",
-		prompt_pos = "title",
-		win = { style = "input" },
-		expand = true,
-	},
-	dashboard = {
-		preset = {
-			pick = nil,
-			keys = {
-				{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-				{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-				{
-					icon = " ",
-					key = "c",
-					desc = "Config",
-					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-				},
-				{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
-				{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+	opts = {
+		image = { enabled = true },
+		bigfile = { enabled = true },
+		notifier = { enabled = true },
+		explorer = { enabled = true, replace_netrw = false },
+		statuscolumn = { enabled = true },
+		-- terminal = {
+		-- 	enabled = true,
+		-- },
+		indent = {
+			enable = true,
+			animate = {
+				enabled = false,
 			},
+		},
+		input = {
+			icon = " ",
+			icon_hl = "SnacksInputIcon",
+			icon_pos = "left",
+			prompt_pos = "title",
+			win = { style = "input" },
+			expand = true,
+		},
+		dashboard = {
+			preset = {
+				pick = nil,
+				keys = {
+					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+					{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+					{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+					{
+						icon = " ",
+						key = "c",
+						desc = "Config",
+						action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+					},
+					{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+					{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+				},
 			header = [[
                                                                      
        ████ ██████           █████      ██                     
@@ -49,32 +71,26 @@ require("snacks").setup({
   ███████████ ███    ███ █████████ █████ █████ ████ █████  
  ██████  █████████████████████ ████ █████ █████ ████ ██████ 
       ]],
-		},
-		sections = {
-			{ section = "header" },
-			{
-				section = "keys",
-				indent = 1,
-				padding = 1,
 			},
-			-- { section = 'recent_files', icon = ' ', title = 'Recent Files', indent = 3, padding = 2 },
-			-- { section = "startup" },
+			sections = {
+				{ section = "header" },
+				{
+					section = "keys",
+					indent = 1,
+					padding = 1,
+				},
+				-- { section = 'recent_files', icon = ' ', title = 'Recent Files', indent = 3, padding = 2 },
+				-- { section = "startup" },
+			},
+		},
+		backends = {
+			ghostty = true,
+			tmux = true,
+		},
+		features = {
+			markdown = true,
+			latex = false,
+			mermaid = false,
 		},
 	},
-	backends = {
-		ghostty = true,
-		tmux = true,
-	},
-	features = {
-		markdown = true,
-		latex = false,
-		mermaid = false,
-	},
-})
-
-vim.keymap.set("n", "<leader>ee", function()
-	Snacks.explorer()
-end, { desc = "[E]xplorer toggle" })
-vim.keymap.set("n", "<leader>ef", function()
-	Snacks.explorer.reveal()
-end, { desc = "[E]xplorer reveal current [F]ile" })
+}

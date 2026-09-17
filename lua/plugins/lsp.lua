@@ -1,154 +1,173 @@
-local lspconfig = require("lspconfig")
-local util = require("lspconfig.util")
-
-vim.opt.signcolumn = "yes"
-vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-})
-
-local lsp_defaults = lspconfig.util.default_config
-lsp_defaults.capabilities =
-	vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
-
-require("mason").setup({
-	ui = {
-		icons = {
-			package_installed = "✓",
-			package_pending = "➜",
-			package_uninstalled = "✗",
-		},
+return {
+	"neovim/nvim-lspconfig",
+	cmd = { "LspInfo", "LspInstall", "LspStart" },
+	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		{ "williamboman/mason.nvim" },
+		{ "williamboman/mason-lspconfig.nvim" },
+		{ "jay-babu/mason-nvim-dap.nvim" },
+		-- capabilities are read from blink.cmp in config below
+		{ "saghen/blink.cmp" },
+		-- replaces the old `require("plugins.java")` ordering in init.lua
+		{ "nvim-java/nvim-java" },
 	},
-})
+	config = function()
+		local lspconfig = require("lspconfig")
+		local util = require("lspconfig.util")
 
-require("mason-lspconfig").setup({
-	ensure_installed = {
-		"lua_ls",
-		"vtsls",
-		"pyright",
-		"gopls",
-		"html",
-		"cssls",
-		"tailwindcss",
-		"yamlls",
-		"helm_ls",
-		"rust_analyzer",
-	},
-	automatic_installation = true,
-})
+		vim.opt.signcolumn = "yes"
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+		})
 
-vim.lsp.config("pyright", {
-	-- nvim 0.11: root_dir receives (bufnr, on_dir)
-	root_dir = function(bufnr, on_dir)
-		local fname = vim.api.nvim_buf_get_name(bufnr)
-		on_dir(util.root_pattern(".git", "pyrightconfig.json", "pyproject.toml")(fname) or vim.fs.dirname(fname))
-	end,
-	settings = {
-		python = {
-			analysis = {
-				extraPaths = { "." },
-			},
-		},
-	},
-})
+		local lsp_defaults = lspconfig.util.default_config
+		lsp_defaults.capabilities =
+			vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("blink.cmp").get_lsp_capabilities())
 
-vim.lsp.config("gopls", {
-	settings = {
-		hints = {
-			rangeVariableTypes = true,
-			parameterNames = true,
-			constantValues = true,
-			assignVariableTypes = true,
-			compositeLiteralFields = true,
-			compositeLiteralTypes = true,
-			functionTypeParameters = true,
-		},
-	},
-})
-
-vim.lsp.config("vtsls", {
-	settings = {
-		typescript = {
-			inlayHints = {
-				parameterNames = { enabled = "all" },
-				parameterTypes = { enabled = true },
-				variableTypes = { enabled = true },
-				propertyDeclarationTypes = { enabled = true },
-				functionLikeReturnTypes = { enabled = true },
-				enumMemberValues = { enabled = true },
-			},
-			suggest = {
-				completeFunctionCalls = true,
-			},
-		},
-		vtsls = {
-			experimental = {
-				enableProjectDiagnostics = true,
-			},
-		},
-	},
-	filetypes = {
-		"typescript",
-		"typescriptreact",
-		"javascript",
-		"javascriptreact",
-	},
-})
-
-vim.lsp.config("tailwindcss", {
-	root_dir = function(bufnr, on_dir)
-		local root = util.root_pattern(
-			"tailwind.config.js",
-			"tailwind.config.ts",
-			"postcss.config.js",
-			"postcss.config.ts",
-			"package.json",
-			"node_modules",
-			".git"
-		)(vim.api.nvim_buf_get_name(bufnr))
-		if root then
-			on_dir(root)
-		end
-	end,
-})
-
-vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			hint = { enable = true },
-			diagnostics = {
-				globals = {
-					"vim",
-					"require",
+		require("mason").setup({
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
 				},
 			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				checkThirdParty = false,
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-})
+		})
 
-vim.lsp.config("rust_analyzer", {})
-vim.lsp.config("yamlls", {
-	settings = {
-		yaml = {
-			validate = true,
-			disableAdditionalProperties = false,
-			schemas = {},
-		},
-	},
-	on_attach = function(client, bufnr)
-		local path = vim.api.nvim_buf_get_name(bufnr)
-		if path:match("charts/templates") then
-			client.server_capabilities.documentFormattingProvider = false
-			vim.diagnostic.enable(false, { bufnr = bufnr })
-		end
+		require("mason-lspconfig").setup({
+			ensure_installed = {
+				"lua_ls",
+				"vtsls",
+				"pyright",
+				"gopls",
+				"html",
+				"cssls",
+				"tailwindcss",
+				"yamlls",
+				"helm_ls",
+				"rust_analyzer",
+			},
+			automatic_installation = true,
+		})
+
+		vim.lsp.config("pyright", {
+			-- nvim 0.11: root_dir receives (bufnr, on_dir)
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				on_dir(
+					util.root_pattern(".git", "pyrightconfig.json", "pyproject.toml")(fname)
+						or vim.fs.dirname(fname)
+				)
+			end,
+			settings = {
+				python = {
+					analysis = {
+						extraPaths = { "." },
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("gopls", {
+			settings = {
+				hints = {
+					rangeVariableTypes = true,
+					parameterNames = true,
+					constantValues = true,
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = true,
+					functionTypeParameters = true,
+				},
+			},
+		})
+
+		vim.lsp.config("vtsls", {
+			settings = {
+				typescript = {
+					inlayHints = {
+						parameterNames = { enabled = "all" },
+						parameterTypes = { enabled = true },
+						variableTypes = { enabled = true },
+						propertyDeclarationTypes = { enabled = true },
+						functionLikeReturnTypes = { enabled = true },
+						enumMemberValues = { enabled = true },
+					},
+					suggest = {
+						completeFunctionCalls = true,
+					},
+				},
+				vtsls = {
+					experimental = {
+						enableProjectDiagnostics = true,
+					},
+				},
+			},
+			filetypes = {
+				"typescript",
+				"typescriptreact",
+				"javascript",
+				"javascriptreact",
+			},
+		})
+
+		vim.lsp.config("tailwindcss", {
+			root_dir = function(bufnr, on_dir)
+				local root = util.root_pattern(
+					"tailwind.config.js",
+					"tailwind.config.ts",
+					"postcss.config.js",
+					"postcss.config.ts",
+					"package.json",
+					"node_modules",
+					".git"
+				)(vim.api.nvim_buf_get_name(bufnr))
+				if root then
+					on_dir(root)
+				end
+			end,
+		})
+
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					hint = { enable = true },
+					diagnostics = {
+						globals = {
+							"vim",
+							"require",
+						},
+					},
+					workspace = {
+						library = vim.api.nvim_get_runtime_file("", true),
+						checkThirdParty = false,
+					},
+					telemetry = {
+						enable = false,
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("rust_analyzer", {})
+		vim.lsp.config("yamlls", {
+			settings = {
+				yaml = {
+					validate = true,
+					disableAdditionalProperties = false,
+					schemas = {},
+				},
+			},
+			on_attach = function(client, bufnr)
+				local path = vim.api.nvim_buf_get_name(bufnr)
+				if path:match("charts/templates") then
+					client.server_capabilities.documentFormattingProvider = false
+					vim.diagnostic.enable(false, { bufnr = bufnr })
+				end
+			end,
+		})
 	end,
-})
+}
