@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{ "rafamadriz/friendly-snippets" },
 	{ "sphamba/smear-cursor.nvim" },
 	{
 		"MaximilianLloyd/ascii.nvim",
