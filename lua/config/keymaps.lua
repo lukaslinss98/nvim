@@ -12,51 +12,32 @@ vim.keymap.set("n", "<leader>en", function()
 	})
 end, { desc = "Telescope Edit NeoVim" })
 
-vim.keymap.set("n", "<leader>ge", function()
-	vim.diagnostic.jump({ count = 1, float = true })
-end, { desc = "Go to next diagnostic" })
-vim.keymap.set("n", "<leader>gE", function()
-	vim.diagnostic.jump({ count = -1, float = true })
-end, { desc = "Go to previous diagnostic" })
-vim.keymap.set("n", "<leader>gD", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+-- Diagnostic navigation uses the native ]d / [d / <C-w>d
 vim.keymap.set("n", "<leader>gq", vim.diagnostic.setloclist, { desc = "Diagnostics to location list" })
 
 -- LSP keybindings
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions with Telescope",
 	callback = function(event)
-		local opts = { buffer = event.buf }
-
-		-- Hover and signature help (built-in)
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-		vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-
-		-- Definitions, declarations, implementations, references via Telescope
-		vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-		vim.keymap.set("n", "gi", builtin.lsp_implementations, opts)
-		vim.keymap.set("n", "go", builtin.lsp_type_definitions, opts)
-		vim.keymap.set("n", "gr", function()
-			builtin.lsp_references({
-				include_declaration = false,
-			})
-		end, opts)
-
-		-- Telescope-powered symbol search
-		vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, opts)
-		vim.keymap.set("n", "<leader>ws", builtin.lsp_workspace_symbols, opts)
-
-		-- Code actions and refactor
-		if vim.lsp.buf.range_code_action then
-			vim.keymap.set(
-				"n",
-				"<leader>ca",
-				vim.lsp.buf.range_code_action,
-				{ buffer = 0, desc = "Range code action." }
-			)
-		else
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0, desc = "Code action." })
+		local map = function(lhs, rhs, desc)
+			vim.keymap.set("n", lhs, rhs, { buffer = event.buf, desc = desc })
 		end
+
+		-- Native keys, upgraded to Telescope pickers
+		map("grr", function()
+			builtin.lsp_references({ include_declaration = false })
+		end, "References")
+		map("gri", builtin.lsp_implementations, "Implementations")
+		map("grt", builtin.lsp_type_definitions, "Type definition")
+		map("gO", builtin.lsp_document_symbols, "Document symbols")
+
+		-- No native equivalent
+		map("gd", builtin.lsp_definitions, "Go to definition")
+		map("gD", vim.lsp.buf.declaration, "Go to declaration")
+		map("<leader>ws", builtin.lsp_workspace_symbols, "Workspace symbols")
+
+		-- Already native: K (hover), gra (code action), grn (rename),
+		-- <C-s> in insert mode (signature help)
 
 		-- format
 		vim.keymap.set({ "n", "x" }, "<leader>fc", function()
